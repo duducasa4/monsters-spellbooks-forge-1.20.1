@@ -1,0 +1,134 @@
+package net.redreaper.monsterspellbooks.datagen;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.init.ModBlocks;
+import net.redreaper.monsterspellbooks.init.ModItems;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModItemTagProvider extends ItemTagsProvider {
+    public ModItemTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTags, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, blockTags, MonstersSpellbooks.MOD_ID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.Provider provider) {
+
+        tag(ItemTags.SWORDS)
+                .add(ModItems.GREAT_AXEBLADE.get())
+                .add(ModItems.MASTERS_KATANA.get())
+                .add(ModItems.DANCERS_SWORD.get())
+                .add(ModItems.PRISMARINE_CLAYMORE.get())
+                .add(ModItems.CULTIST_KNIFE.get())
+                .add(ModItems.ETERNAL_KNIFE.get())
+                .add(ModItems.ORICHALCUM_DAGGER.get())
+                .add(ModItems.ORICHALCUM_GREATSWORD.get())
+                .add(ModItems.ORICHALCUM_WARHAMMER.get())
+                .add(ModItems.DWARVEN_WARHAMMER.get())
+                .add(ModItems.SANGUINITE_DAGGER.get())
+                .add(ModItems.SANGUINITE_SCYTHE.get())
+                .add(ModItems.DEATHSILVER_DAGGER.get())
+                .add(ModItems.DEATHSILVER_SWORD.get())
+                .add(ModItems.VILLAGE_BUTCHERER.get())
+                .add(ModItems.POISON_BITER.get())
+                .add(ModItems.POISON_GLAIVE.get())
+                .add(ModItems.NECROMANCER_TRIDENT.get())
+                .add(ModItems.FROST_FANG.get())
+                .add(ModItems.CRESCENT_BLOOD_ROSE.get())
+                .add(ModItems.CLAWS_OF_CALAMITY.get())
+                .add(ModItems.DUCHEES_SEWING_NEEDLE.get())
+                .add(ModItems.DUKES_HEARTSTEALER.get())
+                .add(ModItems.FROSTMOURNE.get())
+                .add(ModItems.MAGMATIC_MACUAHUITL.get())
+                .add(ModItems.STARLESS_NIGHT.get())
+                .add(ModItems.STARSCOURGE_SWORD.get())
+                .add(ModItems.VOID_TOUCHED_BLADE.get())
+                .add(ModItems.SWIFT_STRIKER.get())
+                .add(ModItems.DISRUPTION_NAGINATA.get())
+                .add(ModItems.SWORD_OF_COURAGE.get())
+                .add(ModItems.REAPER_SICKLE.get())
+        ;
+
+        tag(ItemTags.PICKAXES)
+                .add(ModItems.WHITE_GOLD_PICKAXE.get())
+                .add(ModItems.ROSE_GOLD_PICKAXE.get())
+        ;
+        tag(ItemTags.AXES)
+                .add(ModItems.GREAT_AXEBLADE.get())
+                .add(ModItems.WHITE_GOLD_AXE.get())
+                .add(ModItems.ROSE_GOLD_AXE.get())
+                .add(ModItems.ORICHALCUM_GREATAXE.get())
+                .add(ModItems.ORICHALCUM_AXE.get())
+                .add(ModItems.DWARVEN_GREATAXE.get())
+                .add(ModItems.DWARVEN_AXE.get())
+                .add(ModItems.PRISMARINE_AXE.get())
+                .add(ModItems.SANGUINITE_AXE.get())
+                .add(ModItems.DEATHSILVER_AXE.get())
+                .add(ModItems.GORE_CHILD.get())
+        ;
+        tag(ItemTags.SHOVELS)
+                .add(ModItems.WHITE_GOLD_SHOVEL.get())
+                .add(ModItems.ROSE_GOLD_SHOVEL.get())
+        ;
+        tag(ItemTags.HOES)
+                .add(ModItems.WHITE_GOLD_HOE.get())
+                .add(ModItems.ROSE_GOLD_HOE.get())
+        ;
+
+        tag(ItemTags.SWORD_ENCHANTABLE)
+                .add(ModItems.ORICHALCUM_GREATAXE.get())
+                .add(ModItems.DWARVEN_GREATAXE.get())
+                .add(ModItems.SANGUINITE_AXE.get())
+        ;
+
+        tag(ItemTags.MACE_ENCHANTABLE)
+                .add(ModItems.PALLADIN_HAMMER.get())
+                .add(ModItems.ENDERSENT_CRUSHER.get())
+        ;
+
+        tag(ItemTags.BOW_ENCHANTABLE)
+                .add(ModItems.SNOW_BOW.get())
+                .add(ModItems.RED_SNAKE_BOW.get())
+        ;
+
+        tag(ItemTags.DURABILITY_ENCHANTABLE)
+                .add(ModItems.MITHRIL_SHIELD.get())
+                .add(ModItems.DWARVEN_SHIELD.get())
+        ;
+
+        tag(ItemTags.WEAPON_ENCHANTABLE)
+                .add(ModItems.PALLADIN_HAMMER.get())
+                .add(ModItems.ENDERSENT_CRUSHER.get())
+        ;
+
+        tag(ItemTags.FREEZE_IMMUNE_WEARABLES)
+                .add(ModItems.ILLAGER_ICEOLOGER_HELMET.get())
+                .add(ModItems.ILLAGER_ICEOLOGER_CHESTPLATE.get())
+                .add(ModItems.ILLAGER_ICEOLOGER_LEGGINGS.get())
+                .add(ModItems.ILLAGER_ICEOLOGER_BOOTS.get())
+                .add(ModItems.DEATH_KNIGHT_HELMET.get())
+                .add(ModItems.DEATH_KNIGHT_CHESTPLATE.get())
+                .add(ModItems.DEATH_KNIGHT_LEGGINGS.get())
+                .add(ModItems.DEATH_KNIGHT_BOOTS.get())
+        ;
+
+        tag(ItemTags.PLANKS)
+                .add(ModBlocks.CORAL_PLANKS.asItem())
+        ;
+
+        tag(ItemTags.STONE_TOOL_MATERIALS)
+                .add(ModBlocks.VILESTONE.asItem())
+                .add(ModBlocks.IVORYSTONE.asItem())
+        ;
+
+
+
+    }
+}

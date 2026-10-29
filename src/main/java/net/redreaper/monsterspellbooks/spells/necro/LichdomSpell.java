@@ -1,0 +1,96 @@
+package net.redreaper.monsterspellbooks.spells.necro;
+
+import io.redspace.ironsspellbooks.api.config.DefaultConfig;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import net.acetheeldritchking.aces_spell_utils.utils.ASUtils;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.init.ModMobEffects;
+import net.redreaper.monsterspellbooks.init.ModSpellSchools;
+import net.redreaper.monsterspellbooks.init.ModTags;
+import net.redreaper.monsterspellbooks.spells.AbstractTaggedSpell;
+
+import java.util.List;
+import java.util.Optional;
+
+public class LichdomSpell extends AbstractTaggedSpell {
+    private final ResourceLocation spellId = new ResourceLocation(MonstersSpellbooks.MOD_ID, "lichdom");
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.effect_length", Utils.timeFromTicks(getSpellPower(spellLevel, caster) * 20, 1))
+        );
+    }
+
+    private final DefaultConfig defaultConfig = new DefaultConfig()
+            .setMinRarity(SpellRarity.LEGENDARY)
+            .setSchoolResource(ModSpellSchools.NECRO_RESOURCE)
+            .setMaxLevel(6)
+            .setCooldownSeconds(150)
+            .build();
+
+    public LichdomSpell() {
+        this.manaCostPerLevel = 10;
+        this.baseSpellPower = 20;
+        this.spellPowerPerLevel = 3;
+        this.castTime = 50;
+        this.baseManaCost = 120;
+    }
+
+    @Override
+    public CastType getCastType() {
+        return CastType.INSTANT;
+    }
+
+    @Override
+    public DefaultConfig getDefaultConfig() {
+        return defaultConfig;
+    }
+
+    @Override
+    public ResourceLocation getSpellResource() {
+        return spellId;
+    }
+
+    @Override public Optional<SoundEvent> getCastStartSound() {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<SoundEvent> getCastFinishSound() {
+        return Optional.of(SoundEvents.WITHER_SPAWN);
+    }
+
+    @Override
+    public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
+        if (entity instanceof Player player) {
+            boolean hasLichdomKey =  hasTaggedItem(entity, ModTags.Items.LICHDOM_KEYS);
+            if (hasLichdomKey) {
+                entity.addEffect(new MobEffectInstance(ModMobEffects.LICHDOM.get(), (int) (getSpellPower(spellLevel, entity) * 20), 0, false, false, true));
+            } else {
+                entity.addEffect(new MobEffectInstance(ModMobEffects.CURSE.get(), (int) (getSpellPower(spellLevel, entity) * 5), 0, false, false, true));
+            }
+        }
+        else {
+            entity.addEffect(new MobEffectInstance(ModMobEffects.LICHDOM.get(), 20 * 120, 0, false, false, true));
+        }
+        super.onCast(level, spellLevel, entity, castSource, playerMagicData);
+    }
+
+    @Override
+    public AnimationHolder getCastStartAnimation() {
+        return SpellAnimations.SELF_CAST_ANIMATION;
+    }
+}

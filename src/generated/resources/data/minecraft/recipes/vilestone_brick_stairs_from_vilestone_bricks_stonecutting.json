@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "monsterspellbooks:vilestone_bricks"
+  },
+  "result": "monsterspellbooks:vilestone_brick_stairs",
+  "count": 1
+}

@@ -1,0 +1,93 @@
+package net.redreaper.monsterspellbooks.spells.ice;
+
+import io.redspace.ironsspellbooks.api.config.DefaultConfig;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.effect.HastenedEffect;
+import io.redspace.ironsspellbooks.particle.SwirlingParticleOptions;
+import io.redspace.ironsspellbooks.registries.SoundRegistry;
+import io.redspace.ironsspellbooks.util.ParticleHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.init.ModMobEffects;
+
+import java.util.List;
+import java.util.Optional;
+
+public class FrostCoatingSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(MonstersSpellbooks.MOD_ID, "frost_coating");
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.monsterspellbooks.frost_coating", Utils.stringTruncation(HastenedEffect.getPercentForAmplifier(getAmplifier(spellLevel, caster), caster) * 100, 1)),
+                Component.translatable("ui.irons_spellbooks.effect_length", Utils.timeFromTicks(getDuration(spellLevel, caster), 1))
+        );
+    }
+
+    private final DefaultConfig defaultConfig = new DefaultConfig()
+            .setMinRarity(SpellRarity.COMMON)
+            .setSchoolResource(SchoolRegistry.ICE_RESOURCE)
+            .setMaxLevel(8)
+            .setCooldownSeconds(40)
+            .build();
+
+    public FrostCoatingSpell() {
+        this.manaCostPerLevel = 25;
+        this.baseSpellPower = 30;
+        this.spellPowerPerLevel = 8;
+        this.castTime = 0;
+        this.baseManaCost = 100;
+    }
+
+    @Override
+    public CastType getCastType() {
+        return CastType.INSTANT;
+    }
+
+    @Override
+    public DefaultConfig getDefaultConfig() {
+        return defaultConfig;
+    }
+
+    @Override
+    public ResourceLocation getSpellResource() {
+        return spellId;
+    }
+
+    @Override
+    public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
+        entity.addEffect(new MobEffectInstance(ModMobEffects.FROST_COATING.get(), getDuration(spellLevel, entity), getAmplifier(spellLevel, entity), false, false, true));
+
+        MagicManager.spawnParticles(world, ParticleHelper.SNOW_DUST, entity.getX(), entity.getY() + 1, entity.getZ(), 50, 0.2, 0.2, 0.2, 0.1, false);
+        MagicManager.spawnParticles(world, new SwirlingParticleOptions(ParticleHelper.SNOWFLAKE, new Vec3(0, 1, 0), new Vec3(1, 0, 0),
+                new Vec3(0.75, 0.75, 12), new Vec3(0.025, 0.025, -.05)), entity.getX(), entity.getY() + 1, entity.getZ(), 35, 0, 0.5, 0, 0.01, false);
+
+        super.onCast(world, spellLevel, entity, castSource, playerMagicData);
+    }
+
+    public int getAmplifier(int spellLevel, LivingEntity caster) {
+        int base = 8 - 1; // 20%
+        return (int) (base * getEntityPowerMultiplier(caster));
+    }
+
+    public int getDuration(int spellLevel, LivingEntity caster) {
+        return (int) (getSpellPower(spellLevel, caster) * 20);
+    }
+
+    @Override public Optional<SoundEvent> getCastFinishSound() {return Optional.of(SoundRegistry.FROSTBITE_FREEZE.get());}
+
+    @Override public AnimationHolder getCastStartAnimation() {return SpellAnimations.SELF_CAST_ANIMATION;}
+
+}

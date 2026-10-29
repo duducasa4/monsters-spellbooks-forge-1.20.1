@@ -1,0 +1,92 @@
+package net.redreaper.monsterspellbooks.spells.necro;
+
+import io.redspace.ironsspellbooks.api.config.DefaultConfig;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
+import net.acetheeldritchking.aces_spell_utils.spells.ASSpellAnimations;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.entity.spells.vile_slash.VileSlashProjectileNew;
+import net.redreaper.monsterspellbooks.init.ModSpellSchools;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+public class VileSlashSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(MonstersSpellbooks.MOD_ID, "vile_slash");
+    private final DefaultConfig defaultConfig = new DefaultConfig()
+            .setMinRarity(SpellRarity.RARE)
+            .setSchoolResource(ModSpellSchools.NECRO_RESOURCE)
+            .setMaxLevel(5)
+            .setCooldownSeconds(35)
+            .build();
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(Component.translatable("ui.irons_spellbooks.damage", Utils.stringTruncation(getSpellPower(spellLevel, caster), 2)));
+    }
+
+    public VileSlashSpell() {
+        this.manaCostPerLevel = 5;
+        this.baseSpellPower = 10;
+        this.spellPowerPerLevel = 1;
+        this.castTime = 0;
+        this.baseManaCost = 25;
+    }
+
+    @Override
+    public CastType getCastType() {
+        return CastType.INSTANT;
+    }
+
+    @Override
+    public DefaultConfig getDefaultConfig() {
+        return defaultConfig;
+    }
+
+    @Override
+    public ResourceLocation getSpellResource() {
+        return spellId;
+    }
+
+    @Override
+    public void onCast(Level world, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
+        VileSlashProjectileNew vileSlash = new VileSlashProjectileNew(world, entity);
+        vileSlash.setPos(entity.getEyePosition());
+        vileSlash.setDelay(getDelay(spellLevel,entity));
+        vileSlash.setDamage(getSpellPower(spellLevel, entity));
+        vileSlash.getSpeed();
+        vileSlash.setNoGravity(true);
+        vileSlash.setDeltaMovement(0, 0, 0);
+        vileSlash.moveTo(entity.getX() - 1, entity.getY() + 1, entity.getZ());
+        vileSlash.setYRot(entity.getYRot() % 360.0F);
+        vileSlash.setXRot(net.minecraft.util.Mth.clamp(entity.getXRot(), -90.0F, 90.0F) % 360.0F);
+        vileSlash.yRotO = vileSlash.getYRot();
+        vileSlash.xRotO = vileSlash.getXRot();
+        world.addFreshEntity(vileSlash);
+        super.onCast(world, spellLevel, entity, castSource, playerMagicData);
+    }
+
+    @Override
+    public SpellDamageSource getDamageSource(@Nullable Entity projectile, Entity attacker) {
+        return super.getDamageSource(projectile, attacker);
+    }
+
+    public int getDelay(int spellLevel, LivingEntity caster) {
+        return (int) (200 /(getSpellPower(spellLevel, caster)));
+    }
+
+    @Override
+    public AnimationHolder getCastStartAnimation() {
+        return ASSpellAnimations.ANIMATION_RIGHT_HORIZONTAL_SWORD_SLASH;
+    }
+}
+

@@ -1,0 +1,238 @@
+package net.redreaper.monsterspellbooks.datagen;
+
+import net.minecraft.core.HolderLookup;
+import net.minecraft.data.PackOutput;
+import net.minecraft.tags.BlockTags;
+import net.minecraftforge.common.data.BlockTagsProvider;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.init.ModBlocks;
+import net.redreaper.monsterspellbooks.init.ModTags;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.concurrent.CompletableFuture;
+
+public class ModBlockTagProvider extends BlockTagsProvider {
+    public ModBlockTagProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
+        super(output, lookupProvider, MonstersSpellbooks.MOD_ID, existingFileHelper);
+    }
+
+    @Override
+    protected void addTags(HolderLookup.@NotNull Provider provider) {
+
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(ModBlocks.ROSE_GOLD_BLOCK.get())
+                .add(ModBlocks.POSEIDON_PEARL_ORE.get())
+                .add(ModBlocks.POSEIDON_PEARL_BLOCK.get())
+                .add(ModBlocks.ORICHALCUM_ORE.get())
+                .add(ModBlocks.DEEPSLATE_ORICHALCUM_ORE.get())
+                .add(ModBlocks.RAW_ORICHALCUM_BLOCK.get())
+                .add(ModBlocks.ORICHALCUM_BLOCK.get())
+                .add(ModBlocks.DEATHSILVER_ORE.get())
+                .add(ModBlocks.DEATHSILVER_BLOCK.get())
+                .add(ModBlocks.SANGUINITE_BLOCK.get())
+                .add(ModBlocks.ILLAGERITE_BLOCK.get())
+                .add(ModBlocks.DWARVEN_ALLOY_BLOCK.get())
+                .add(ModBlocks.WHITE_GOLD_BLOCK.get())
+                .add(ModBlocks.SCORCHED_METAL_ORE.get())
+                .add(ModBlocks.RAW_SCORCHED_METAL_BLOCK.get())
+                .add(ModBlocks.SCORCHED_METAL_BLOCK.get())
+                .add(ModBlocks.NETHER_PYRITE_ORE.get())
+                .add(ModBlocks.NETHER_PYRITE_BLOCK.get())
+                .add(ModBlocks.NETHER_RUBY_ORE.get())
+                .add(ModBlocks.NETHER_RUBY_BLOCK.get())
+                .add(ModBlocks.SPECTRITE_BLOCK.get())
+                .add(ModBlocks.WITHER_ALLOY_BLOCK.get())
+                .add(ModBlocks.BLAZESTEEL_BLOCK.get())
+                .add(ModBlocks.VOID_MATTER_ORE.get())
+
+                .add(ModBlocks.PEARl_MARBLE.get())
+                .add(ModBlocks.PEARL_MARBLE_STAIRS.get())
+                .add(ModBlocks.PEARL_MARBLE_SLAB.get())
+                .add(ModBlocks.PEARL_MARBLE_WALL.get())
+                .add(ModBlocks.POLISHED_PEARl_MARBLE.get())
+                .add(ModBlocks.POLISHED_PEARL_MARBLE_STAIRS.get())
+                .add(ModBlocks.POLISHED_PEARL_MARBLE_SLAB.get())
+                .add(ModBlocks.POLISHED_PEARL_MARBLE_WALL.get())
+                .add(ModBlocks.PEARl_MARBLE_TILES.get())
+                .add(ModBlocks.PEARL_MARBLE_TILE_STAIRS.get())
+                .add(ModBlocks.PEARL_MARBLE_TILE_SLAB.get())
+                .add(ModBlocks.PEARL_MARBLE_TILE_WALL.get())
+                .add(ModBlocks.PEARl_MARBLE_PILLAR.get())
+
+                .add(ModBlocks.CHISELED_PRISMARINE_BRICKS.get())
+                .add(ModBlocks.IVORYSTONE.get())
+                .add(ModBlocks.IVORYSTONE.get())
+                .add(ModBlocks.IVORYSTONE_STAIRS.get())
+                .add(ModBlocks.IVORYSTONE_SLAB.get())
+                .add(ModBlocks.IVORYSTONE_WALL.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE_STAIRS.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE_SLAB.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE_WALL.get())
+                .add(ModBlocks.IVORYSTONE_BRICKS.get())
+                .add(ModBlocks.IVORYSTONE_BRICK_STAIRS.get())
+                .add(ModBlocks.IVORYSTONE_BRICK_SLAB.get())
+                .add(ModBlocks.IVORYSTONE_BRICK_WALL.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICKS.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICK_STAIRS.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICK_SLAB.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICK_WALL.get())
+                .add(ModBlocks.CHISELED_IVORYSTONE_BRICKS.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICKS.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICK_STAIRS.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICK_SLAB.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICK_WALL.get())
+
+                .add(ModBlocks.VILESTONE.get())
+                .add(ModBlocks.VILESTONE_STAIRS.get())
+                .add(ModBlocks.VILESTONE_SLAB.get())
+                .add(ModBlocks.VILESTONE_WALL.get())
+
+                .add(ModBlocks.VILESTONE_BRICKS.get())
+                .add(ModBlocks.VILESTONE_BRICK_STAIRS.get())
+                .add(ModBlocks.VILESTONE_BRICK_SLAB.get())
+                .add(ModBlocks.VILESTONE_BRICK_WALL.get())
+                .add(ModBlocks.CHISELED_VILESTONE_BRICKS.get())
+
+                .add(ModBlocks.GRAVISTONE.get())
+        ;
+
+        tag(BlockTags.MINEABLE_WITH_AXE)
+                .add(ModBlocks.CORAL_LOG.get())
+                .add(ModBlocks.CORAL_PLANKS.get())
+        ;
+
+        tag(BlockTags.NEEDS_IRON_TOOL)
+                .add(ModBlocks.POSEIDON_PEARL_ORE.get())
+                .add(ModBlocks.POSEIDON_PEARL_BLOCK.get())
+                .add(ModBlocks.ORICHALCUM_ORE.get())
+                .add(ModBlocks.DEEPSLATE_ORICHALCUM_ORE.get())
+                .add(ModBlocks.RAW_ORICHALCUM_BLOCK.get())
+                .add(ModBlocks.ORICHALCUM_BLOCK.get())
+                .add(ModBlocks.DEATHSILVER_ORE.get())
+                .add(ModBlocks.DEATHSILVER_BLOCK.get())
+                .add(ModBlocks.SANGUINITE_BLOCK.get())
+                .add(ModBlocks.ILLAGERITE_BLOCK.get())
+                .add(ModBlocks.DWARVEN_ALLOY_BLOCK.get())
+                .add(ModBlocks.NETHER_RUBY_ORE.get())
+                .add(ModBlocks.NETHER_RUBY_BLOCK.get())
+        ;
+
+        tag(BlockTags.NEEDS_DIAMOND_TOOL)
+                .add(ModBlocks.SPECTRITE_BLOCK.get())
+                .add(ModBlocks.WITHER_ALLOY_BLOCK.get())
+                .add(ModBlocks.BLAZESTEEL_BLOCK.get())
+                .add(ModBlocks.VOID_MATTER_ORE.get())
+        ;
+
+
+
+        tag(BlockTags.LOGS)
+                .add(ModBlocks.CORAL_LOG.get())
+        ;
+
+        tag(BlockTags.PLANKS)
+                .add(ModBlocks.CORAL_PLANKS.get())
+        ;
+
+        tag(BlockTags.PIGLIN_REPELLENTS)
+                .add(ModBlocks.SPECTRITE_BLOCK.get())
+        ;
+
+        tag(BlockTags.CORAL_BLOCKS)
+                .add(ModBlocks.CORAL_LOG.get())
+        ;
+
+        tag(BlockTags.STAIRS)
+                .add(ModBlocks.PEARL_MARBLE_STAIRS.get())
+                .add(ModBlocks.POLISHED_PEARL_MARBLE_STAIRS.get())
+                .add(ModBlocks.PEARL_MARBLE_TILE_STAIRS.get())
+
+                .add(ModBlocks.IVORYSTONE_STAIRS.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE_STAIRS.get())
+                .add(ModBlocks.IVORYSTONE_BRICK_STAIRS.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICK_STAIRS.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICK_STAIRS.get())
+
+                .add(ModBlocks.VILESTONE_STAIRS.get())
+                .add(ModBlocks.VILESTONE_BRICK_STAIRS.get())
+
+        ;
+
+        tag(BlockTags.SLABS)
+                .add(ModBlocks.PEARL_MARBLE_SLAB.get())
+                .add(ModBlocks.POLISHED_PEARL_MARBLE_SLAB.get())
+                .add(ModBlocks.PEARL_MARBLE_TILE_SLAB.get())
+
+                .add(ModBlocks.IVORYSTONE_SLAB.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE_SLAB.get())
+                .add(ModBlocks.IVORYSTONE_BRICK_SLAB.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICK_SLAB.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICK_SLAB.get())
+
+                .add(ModBlocks.VILESTONE_SLAB.get())
+                .add(ModBlocks.VILESTONE_BRICK_SLAB.get())
+        ;
+
+        tag(BlockTags.WALLS)
+                .add(ModBlocks.PEARL_MARBLE_WALL.get())
+                .add(ModBlocks.POLISHED_PEARL_MARBLE_WALL.get())
+                .add(ModBlocks.PEARL_MARBLE_TILE_WALL.get())
+
+                .add(ModBlocks.IVORYSTONE_WALL.get())
+                .add(ModBlocks.POLISHED_IVORYSTONE_WALL.get())
+                .add(ModBlocks.IVORYSTONE_BRICK_WALL.get())
+                .add(ModBlocks.CRACKED_IVORYSTONE_BRICK_WALL.get())
+                .add(ModBlocks.FROST_IVORYSTONE_BRICK_WALL.get())
+
+
+                .add(ModBlocks.VILESTONE_WALL.get())
+
+                .add(ModBlocks.VILESTONE_BRICK_WALL.get())
+        ;
+
+        tag(BlockTags.DRAGON_IMMUNE)
+                .add(ModBlocks.VOID_MATTER_ORE.get())
+                .add(ModBlocks.GRAVISTONE.get())
+        ;
+
+        tag(ModTags.Blocks.NEEDS_STONE_LEVEL_TOOL)
+                .addTag(BlockTags.NEEDS_STONE_TOOL)
+        ;
+
+        tag(ModTags.Blocks.NEEDS_IRON_LEVEL_TOOL)
+                .addTag(BlockTags.NEEDS_IRON_TOOL)
+        ;
+
+        tag(ModTags.Blocks.NEEDS_DIAMOND_LEVEL_TOOL)
+                .addTag(BlockTags.NEEDS_DIAMOND_TOOL)
+        ;
+
+        tag(ModTags.Blocks.INCORRECT_FOR_STONE_LEVEL_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_STONE_TOOL)
+                .remove(ModTags.Blocks.NEEDS_STONE_LEVEL_TOOL)
+        ;
+
+        tag(ModTags.Blocks.INCORRECT_FOR_IRON_LEVEL_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_IRON_TOOL)
+                .remove(ModTags.Blocks.NEEDS_IRON_LEVEL_TOOL)
+        ;
+
+        tag(ModTags.Blocks.INCORRECT_FOR_DIAMOND_LEVEL_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_DIAMOND_TOOL)
+                .remove(ModTags.Blocks.NEEDS_DIAMOND_LEVEL_TOOL)
+        ;
+
+
+        tag(ModTags.Blocks.NEEDS_SANGUINITE_TOOL)
+                .addTag(BlockTags.NEEDS_DIAMOND_TOOL)
+        ;
+
+        tag(ModTags.Blocks.INCORRECT_FOR_SANGUINITE_TOOL)
+                .addTag(BlockTags.INCORRECT_FOR_IRON_TOOL)
+                .remove(ModTags.Blocks.NEEDS_SANGUINITE_TOOL)
+        ;
+    }
+}

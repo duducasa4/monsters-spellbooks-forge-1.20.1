@@ -1,0 +1,9 @@
+{
+  "amount": 0.05,
+  "attribute": "monsterspellbooks:necro_spell_power",
+  "containerItem": {
+    "id": "monsterspellbooks:necro_upgrade_orb",
+    "Count": 1
+  },
+  "operation": "MULTIPLY_BASE"
+}

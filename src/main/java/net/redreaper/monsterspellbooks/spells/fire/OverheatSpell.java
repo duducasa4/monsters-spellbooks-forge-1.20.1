@@ -1,0 +1,103 @@
+package net.redreaper.monsterspellbooks.spells.fire;
+
+import io.redspace.ironsspellbooks.api.config.DefaultConfig;
+import io.redspace.ironsspellbooks.api.magic.MagicData;
+import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.spells.*;
+import io.redspace.ironsspellbooks.api.util.AnimationHolder;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.particle.SwirlingParticleOptions;
+import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
+import io.redspace.ironsspellbooks.registries.SoundRegistry;
+import io.redspace.ironsspellbooks.util.ParticleHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.effect.OverheatMobEffect;
+import net.redreaper.monsterspellbooks.init.ModMobEffects;
+
+import java.util.List;
+import java.util.Optional;
+
+public class OverheatSpell extends AbstractSpell {
+    private final ResourceLocation spellId = new ResourceLocation(MonstersSpellbooks.MOD_ID, "overheat");
+
+    @Override
+    public List<MutableComponent> getUniqueInfo(int spellLevel, LivingEntity caster) {
+        return List.of(
+                Component.translatable("ui.irons_spellbooks.effect_length", Utils.timeFromTicks(getDurationTicks(spellLevel, caster), 1)),
+                Component.translatable("attribute.modifier.plus.1", Utils.stringTruncation(getPercentAttackDamage(spellLevel, caster), 0), Component.translatable("attribute.name.generic.attack_damage")),
+                Component.translatable("ui.irons_spellbooks.rend", Utils.stringTruncation((getRendAmplifier(spellLevel, caster) + 1) * 5, 1))
+                );
+    }
+
+    private final DefaultConfig defaultConfig = new DefaultConfig()
+            .setMinRarity(SpellRarity.RARE)
+            .setSchoolResource(SchoolRegistry.FIRE_RESOURCE)
+            .setMaxLevel(3)
+            .setCooldownSeconds(40)
+            .build();
+
+    public OverheatSpell() {
+        this.manaCostPerLevel = 25;
+        this.baseSpellPower = 30;
+        this.spellPowerPerLevel = 8;
+        this.castTime = 0;
+        this.baseManaCost = 50;
+    }
+
+    public CastType getCastType() {
+        return CastType.INSTANT;
+    }
+
+    public DefaultConfig getDefaultConfig() {
+        return defaultConfig;
+    }
+
+    public ResourceLocation getSpellResource() {
+        return spellId;
+    }
+
+    public void onCast(Level level, int spellLevel, LivingEntity entity, CastSource castSource, MagicData playerMagicData) {
+        entity.addEffect(new MobEffectInstance(ModMobEffects.OVERHEAT.get(), getDurationTicks(spellLevel, entity), spellLevel - 1, false, false, true));
+
+        entity.addEffect(new MobEffectInstance(MobEffectRegistry.REND.get(), getDurationTicks(spellLevel, entity), getRendAmplifier(spellLevel, entity)));
+
+        MagicManager.spawnParticles(level, ParticleHelper.FIRE, entity.getX(), entity.getY() + 1, entity.getZ(), 50, 0.2, 0.2, 0.2, 0.1, false);
+        MagicManager.spawnParticles(level, new SwirlingParticleOptions(ParticleHelper.FIERY_SMOKE, new Vec3(0, 1, 0), new Vec3(1, 0, 0),
+                new Vec3(0.75, 0.75, 12), new Vec3(0.025, 0.025, -.05)), entity.getX(), entity.getY() + 1, entity.getZ(), 35, 0, 0.5, 0, 0.01, false);
+
+
+
+        super.onCast(level, spellLevel, entity, castSource, playerMagicData);
+    }
+
+    private float getPercentAttackDamage(int spellLevel, LivingEntity entity) {
+        return spellLevel * OverheatMobEffect.ATTACK_DAMAGE_PER_LEVEL * 100;
+    }
+
+    private int getDurationTicks(int spellLevel, LivingEntity entity){
+        return (int) (30 * 20 * getEntityPowerMultiplier(entity));
+    }
+
+    public int getRendAmplifier(int spellLevel, LivingEntity caster) {
+        return spellLevel + 2;
+    }
+
+    public AnimationHolder getCastStartAnimation() {
+        return SpellAnimations.SELF_CAST_ANIMATION;
+    }
+
+    @Override public Optional<SoundEvent> getCastFinishSound() {return Optional.of(SoundRegistry.HEAT_SURGE_PREPARE.get());}
+
+    public boolean allowLooting() {
+        return false;
+    }
+}

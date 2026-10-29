@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/orichalcum_greatsword_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/orichalcum_greatsword_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/orichalcum_greatsword_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/orichalcum_greatsword_gui"
+		}
+	}
+}

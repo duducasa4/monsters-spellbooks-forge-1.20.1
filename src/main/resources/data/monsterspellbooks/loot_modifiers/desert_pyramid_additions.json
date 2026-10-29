@@ -1,0 +1,10 @@
+{
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/desert_pyramid"
+    }
+  ],
+  "type": "monsterspellbooks:add_to_table",
+  "loot_table": "monsterspellbooks:chests/desert_pyramid_items"
+}

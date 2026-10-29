@@ -1,0 +1,69 @@
+package net.redreaper.monsterspellbooks.init;
+
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+
+import java.util.function.Supplier;
+
+public class ModSounds {
+
+
+    public static final DeferredRegister<SoundEvent>SOUND_EVENTS=
+            DeferredRegister.create(net.minecraft.core.registries.Registries.SOUND_EVENT, MonstersSpellbooks.MOD_ID);
+
+    public static final Supplier<SoundEvent>BRIMSTONE_WRATH_FIRE =registerSoundEvent("spell_brimstone_fire");
+    public static final Supplier<SoundEvent>ENERGY_FIRE=registerSoundEvent("spell_energy_fire");
+    public static final Supplier<SoundEvent>GUARDIAN_LASER=registerSoundEvent("spell_guardian_laser_loop");
+    public static final Supplier<SoundEvent>SPELL_SCREAM=registerSoundEvent("spell_scream");
+    public static final Supplier<SoundEvent>SOUL_SCREAM=registerSoundEvent("spell_soul_scream");
+    public static final Supplier<SoundEvent>ENDERSENT_SMASH_CAST =registerSoundEvent("spell_endersent_smash_cast");
+    public static final Supplier<SoundEvent>GRAVITY_WAVE =registerSoundEvent("spell_gravity_wave");
+    public static final Supplier<SoundEvent>GRAVEYARD_FISSURE =registerSoundEvent("spell_graveyard_fissure");
+    public static final Supplier<SoundEvent>SOUL_WIZARD_SUMMON =registerSoundEvent("spell_soul_wizard_summon");
+    public static final Supplier<SoundEvent>WHISPERER_SUMMON_START =registerSoundEvent("spell_whisperer_summon_start");
+    public static final Supplier<SoundEvent>ENDER_COMET_CAST =registerSoundEvent("spell_ender_comet_cast");
+    public static final Supplier<SoundEvent>ENDER_COMET_SHOT =registerSoundEvent("spell_ender_comet_shot");
+    public static final Supplier<SoundEvent>VOLT_MULTISHOT_CAST =registerSoundEvent("spell_volt_multishot_cast");
+    public static final Supplier<SoundEvent>CORRUPTED_BEACON_FIRE =registerSoundEvent("spell_corrupted_beacon_fire");
+    public static final Supplier<SoundEvent>CORRUPTED_BEACON_LOOP =registerSoundEvent("spell_corrupted_beacon_loop");
+    public static final Supplier<SoundEvent>WIND_WAVE =registerSoundEvent("spell_wind_wave");
+    public static final Supplier<SoundEvent>EVOCATION_BOOST =registerSoundEvent("spell_evocation_boost");
+    public static final Supplier<SoundEvent>SPORE_EXPLOSION =registerSoundEvent("spell_spore_explosion");
+    public static final Supplier<SoundEvent>CONSTRUCT_SUMMON =registerSoundEvent("spell_construct_summon");
+
+    public static RegistryObject<SoundEvent>BRIMSTONE_BUZZSAW_SHOT =registerSoundEvent("spell_brimstone_sawblade_shot");
+    public static RegistryObject<SoundEvent>BRIMSTONE_BUZZSAW_HIT =registerSoundEvent("spell_brimstone_sawblade_hit");
+    public static RegistryObject<SoundEvent>VOLT_ARROW_SHOT =registerSoundEvent("spell_volt_arrow_shot");
+    public static RegistryObject<SoundEvent>VOLT_ARROW_HIT =registerSoundEvent("spell_volt_arrow_hit");
+    public static RegistryObject<SoundEvent> NECRO_CAST = registerSoundEvent("spell_necro_cast");
+
+    public static final Supplier<SoundEvent>WHISPERER_AMBIENT =registerSoundEvent("whisperer_ambient");
+    public static final Supplier<SoundEvent>WHISPERER_MELEE_ATTACK =registerSoundEvent("whisperer_melee_attack");
+    public static final Supplier<SoundEvent>WHISPERER_DEATH =registerSoundEvent("whisperer_death");
+
+    public static final Supplier<SoundEvent>LEAPLEAF_AMBIENT =registerSoundEvent("leapleaf_ambient");
+    public static final Supplier<SoundEvent>LEAPLEAF_STEP =registerSoundEvent("leapleaf_step");
+    public static final Supplier<SoundEvent>LEAPLEAF_MELEE_ATTACK =registerSoundEvent("leapleaf_melee_attack");
+    public static final Supplier<SoundEvent>LEAPLEAF_LEAP =registerSoundEvent("leapleaf_leap");
+    public static final Supplier<SoundEvent>LEAPLEAF_HURT =registerSoundEvent("leapleaf_hurt");
+    public static final Supplier<SoundEvent>LEAPLEAF_DEATH =registerSoundEvent("leapleaf_death");
+
+    public static final Supplier<SoundEvent>SOUL_WIZARD_HURT =registerSoundEvent("soul_wizard_hurt");
+    public static final Supplier<SoundEvent>BLASTLING_AMBIENT =registerSoundEvent("blastling_ambient");
+    public static final Supplier<SoundEvent>BLASTLING_STEP =registerSoundEvent("blastling_step");
+    public static final Supplier<SoundEvent>BLASTLING_HURT =registerSoundEvent("blastling_hurt");
+    public static final Supplier<SoundEvent>BLASTLING_DEATH =registerSoundEvent("blastling_death");
+
+    private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
+        return SOUND_EVENTS.register(name, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(MonstersSpellbooks.MOD_ID, name)));
+    }
+
+    public static void register (IEventBus eventBus){
+        SOUND_EVENTS.register(eventBus);
+    }
+}

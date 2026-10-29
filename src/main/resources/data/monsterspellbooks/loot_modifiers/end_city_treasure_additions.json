@@ -1,0 +1,10 @@
+{
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/end_city_treasure"
+    }
+  ],
+  "type": "monsterspellbooks:add_to_table",
+  "loot_table": "monsterspellbooks:chests/end_city_items"
+}

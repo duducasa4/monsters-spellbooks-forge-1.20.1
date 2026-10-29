@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "package": "net.redreaper.monsterspellbooks.mixins",
+  "refmap": "monsterspellbooks.refmap.json",
+  "plugin": "net.redreaper.monsterspellbooks.mixins.MixinPlugin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "entity.AegisVillageSpawnMixin",
+    "entity.AddCustomRaidMemberMixin",
+    "ItemAttrsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8",
+  "client": [
+    "client.EntityTurnMixin"
+  ]
+}

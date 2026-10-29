@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": {
+    "item": "monsterspellbooks:void_obsidian_ingot"
+  },
+  "base": {
+    "item": "irons_spellbooks:shadowwalker_chestplate"
+  },
+  "result": {
+    "count": 1,
+    "item": "monsterspellbooks:starscourge_chestplate",
+    "nbt": {
+      "irons_spellbooks:spell_container": {
+        "data": [],
+        "maxSpells": 1,
+        "mustEquip": true,
+        "spellWheel": true
+      }
+    }
+  },
+  "template": {
+    "item": "monsterspellbooks:upgrade_rune"
+  }
+}

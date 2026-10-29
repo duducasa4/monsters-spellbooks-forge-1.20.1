@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/prismarine_claymore_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/prismarine_claymore_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/prismarine_claymore_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/prismarine_claymore_gui"
+		}
+	}
+}

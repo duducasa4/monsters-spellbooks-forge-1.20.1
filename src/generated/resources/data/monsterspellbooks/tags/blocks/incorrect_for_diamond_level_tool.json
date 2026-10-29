@@ -1,0 +1,11 @@
+{
+  "remove": [
+    "#monsterspellbooks:needs_diamond_level_tool"
+  ],
+  "values": [
+    {
+      "id": "#minecraft:incorrect_for_diamond_tool",
+      "required": false
+    }
+  ]
+}

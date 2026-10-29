@@ -1,0 +1,50 @@
+package net.redreaper.monsterspellbooks.item.weapons;
+
+import io.redspace.ironsspellbooks.api.item.curios.AffinityData;
+import io.redspace.ironsspellbooks.api.item.weapons.ExtendedSwordItem;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.effect.ImmolateEffect;
+import io.redspace.ironsspellbooks.util.MinecraftInstanceHelper;
+import net.minecraft.ChatFormatting;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.redreaper.monsterspellbooks.effect.HemorrhageMobEffect;
+import net.redreaper.monsterspellbooks.init.ModExtendedWeaponTiers;
+import net.redreaper.monsterspellbooks.utils.ModRarities;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+
+public class SanguniteDaggerItem extends ExtendedSwordItem {
+
+    public SanguniteDaggerItem() {
+        super(
+                ModExtendedWeaponTiers.SANGUINITE_DAGGER,
+                net.redreaper.monsterspellbooks.compat120.ItemAttrs.with(new Properties()
+                        .stacksTo(1)
+                        .rarity(ModRarities.SANGUINITE_RARITY_PROXY.getValue())
+                        , net.redreaper.monsterspellbooks.compat120.WeaponAttrs.createAttributes(ModExtendedWeaponTiers.SANGUINITE_DAGGER)
+                        )
+        );
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemStack, @NotNull @javax.annotation.Nullable net.minecraft.world.level.Level context, @NotNull List<Component> lines, @NotNull TooltipFlag flag) {
+        super.appendHoverText(itemStack, context, lines, flag);
+        var affinityData = AffinityData.getAffinityData(itemStack);
+        if (Screen.hasShiftDown()) {
+            lines.add(Component.translatable("tooltip.irons_spellbooks.passive_ability_no_cooldown").withStyle(ChatFormatting.DARK_PURPLE));
+            lines.add(Component.literal(" ").append(Component.translatable(this.getDescriptionId() + ".desc")).withStyle(Style.EMPTY.withColor(16722350)));
+            lines.add(Component.translatable("effect.monsterspellbooks.hemorrhage.description",
+                    Component.literal(Utils.stringTruncation(HemorrhageMobEffect.damageFor(MinecraftInstanceHelper.getPlayer()), 1)).withStyle(ChatFormatting.RED)
+            ).withStyle(Style.EMPTY.withColor(16722350)));
+        }
+        else {
+            lines.add(Component.translatable("item.aces_spell_utils.more_details1").withStyle(ChatFormatting.GRAY));
+        }
+    }
+
+}

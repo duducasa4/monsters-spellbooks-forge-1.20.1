@@ -1,0 +1,18 @@
+{
+  "parent": "minecraft:item/handheld",
+  "loader": "forge:separate_transforms",
+  "base": {
+    "parent": "monsterspellbooks:item/endersent_crusher_hand"
+  },
+  "perspectives": {
+    "gui": {
+      "parent": "monsterspellbooks:item/endersent_crusher_gui"
+    },
+    "ground": {
+      "parent": "monsterspellbooks:item/endersent_crusher_gui"
+    },
+    "fixed": {
+      "parent": "monsterspellbooks:item/endersent_crusher_gui"
+    }
+  }
+}a

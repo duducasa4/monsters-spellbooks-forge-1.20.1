@@ -1,0 +1,148 @@
+package net.redreaper.monsterspellbooks.datagen;
+
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.loot.BlockLootSubProvider;
+import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+import net.redreaper.monsterspellbooks.init.ModBlocks;
+import net.redreaper.monsterspellbooks.init.ModItems;
+
+import java.util.Set;
+
+public class ModBlockLootTableProvider extends BlockLootSubProvider {
+    protected ModBlockLootTableProvider(HolderLookup.Provider registries) {super(Set.of(), FeatureFlags.REGISTRY.allFlags(), registries);}
+
+    @Override
+    protected void generate() {
+        dropSelf(ModBlocks.ROSE_GOLD_BLOCK.get());
+        dropSelf(ModBlocks.POSEIDON_PEARL_BLOCK.get());
+        dropSelf(ModBlocks.RAW_ORICHALCUM_BLOCK.get());
+        dropSelf(ModBlocks.ORICHALCUM_BLOCK.get());
+        dropSelf(ModBlocks.DEATHSILVER_BLOCK.get());
+        dropSelf(ModBlocks.ILLAGERITE_BLOCK.get());
+        dropSelf(ModBlocks.SANGUINITE_BLOCK.get());
+        dropSelf(ModBlocks.DWARVEN_ALLOY_BLOCK.get());
+        dropSelf(ModBlocks.WHITE_GOLD_BLOCK.get());
+        dropSelf(ModBlocks.RAW_SCORCHED_METAL_BLOCK.get());
+        dropSelf(ModBlocks.SCORCHED_METAL_BLOCK.get());
+        dropSelf(ModBlocks.NETHER_PYRITE_BLOCK.get());
+        dropSelf(ModBlocks.NETHER_RUBY_BLOCK.get());
+        dropSelf(ModBlocks.SPECTRITE_BLOCK.get());
+        dropSelf(ModBlocks.WITHER_ALLOY_BLOCK.get());
+        dropSelf(ModBlocks.BLAZESTEEL_BLOCK.get());
+
+        dropSelf(ModBlocks.CORAL_LOG.get());
+        dropSelf(ModBlocks.CORAL_PLANKS.get());
+
+        dropSelf(ModBlocks.CHISELED_PRISMARINE_BRICKS.get());
+
+        dropSelf(ModBlocks.PEARl_MARBLE.get());
+        dropSelf(ModBlocks.PEARL_MARBLE_STAIRS.get());
+        add(ModBlocks.PEARL_MARBLE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.PEARL_MARBLE_SLAB.get()));
+        dropSelf(ModBlocks.PEARL_MARBLE_WALL.get());
+
+        dropSelf(ModBlocks.POLISHED_PEARl_MARBLE.get());
+        dropSelf(ModBlocks.POLISHED_PEARL_MARBLE_STAIRS.get());
+        add(ModBlocks.POLISHED_PEARL_MARBLE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.POLISHED_PEARL_MARBLE_SLAB.get()));
+        dropSelf(ModBlocks.POLISHED_PEARL_MARBLE_WALL.get());
+
+        dropSelf(ModBlocks.PEARl_MARBLE_TILES.get());
+        dropSelf(ModBlocks.PEARL_MARBLE_TILE_STAIRS.get());
+        add(ModBlocks.PEARL_MARBLE_TILE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.PEARL_MARBLE_TILE_SLAB.get()));
+        dropSelf(ModBlocks.PEARL_MARBLE_TILE_WALL.get());
+
+        dropSelf(ModBlocks.PEARl_MARBLE_PILLAR.get());
+
+        dropSelf(ModBlocks.IVORYSTONE.get());
+        dropSelf(ModBlocks.IVORYSTONE_STAIRS.get());
+        add(ModBlocks.IVORYSTONE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.IVORYSTONE_SLAB.get()));
+        dropSelf(ModBlocks.IVORYSTONE_WALL.get());
+
+        dropSelf(ModBlocks.POLISHED_IVORYSTONE.get());
+        dropSelf(ModBlocks.POLISHED_IVORYSTONE_STAIRS.get());
+        add(ModBlocks.POLISHED_IVORYSTONE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.POLISHED_IVORYSTONE_SLAB.get()));
+        dropSelf(ModBlocks.POLISHED_IVORYSTONE_WALL.get());
+
+        dropSelf(ModBlocks.IVORYSTONE_BRICKS.get());
+        dropSelf(ModBlocks.IVORYSTONE_BRICK_STAIRS.get());
+        add(ModBlocks.IVORYSTONE_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.IVORYSTONE_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.IVORYSTONE_BRICK_WALL.get());
+
+        dropSelf(ModBlocks.CRACKED_IVORYSTONE_BRICKS.get());
+        dropSelf(ModBlocks.CRACKED_IVORYSTONE_BRICK_STAIRS.get());
+        add(ModBlocks.CRACKED_IVORYSTONE_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.CRACKED_IVORYSTONE_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.CRACKED_IVORYSTONE_BRICK_WALL.get());
+
+        dropSelf(ModBlocks.CHISELED_IVORYSTONE_BRICKS.get());
+
+        dropSelf(ModBlocks.FROST_IVORYSTONE_BRICKS.get());
+        dropSelf(ModBlocks.FROST_IVORYSTONE_BRICK_STAIRS.get());
+        add(ModBlocks.FROST_IVORYSTONE_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.FROST_IVORYSTONE_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.FROST_IVORYSTONE_BRICK_WALL.get());
+
+        dropSelf(ModBlocks.VILESTONE.get());
+        dropSelf(ModBlocks.VILESTONE_STAIRS.get());
+        add(ModBlocks.VILESTONE_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.VILESTONE_SLAB.get()));
+        dropSelf(ModBlocks.VILESTONE_WALL.get());
+
+        dropSelf(ModBlocks.VILESTONE_BRICKS.get());
+        dropSelf(ModBlocks.VILESTONE_BRICK_STAIRS.get());
+        add(ModBlocks.VILESTONE_BRICK_SLAB.get(),
+                block -> createSlabItemTable(ModBlocks.VILESTONE_BRICK_SLAB.get()));
+        dropSelf(ModBlocks.VILESTONE_BRICK_WALL.get());
+
+        dropSelf(ModBlocks.CHISELED_VILESTONE_BRICKS.get());
+
+
+        dropSelf(ModBlocks.GRAVISTONE.get());
+
+        add(ModBlocks.POSEIDON_PEARL_ORE.get(),
+                block -> createOreDrop(ModBlocks.POSEIDON_PEARL_BLOCK.get(), ModItems.POSEIDON_PEARL.get()));
+        add(ModBlocks.ORICHALCUM_ORE.get(),
+                block -> createOreDrop(ModBlocks.ORICHALCUM_ORE.get(), ModItems.RAW_ORICHALCUM.get()));
+        add(ModBlocks.DEEPSLATE_ORICHALCUM_ORE.get(),
+                block -> createOreDrop(ModBlocks.DEEPSLATE_ORICHALCUM_ORE.get(), ModItems.RAW_ORICHALCUM.get()));
+        add(ModBlocks.SCORCHED_METAL_ORE.get(),
+                block -> createOreDrop(ModBlocks.SCORCHED_METAL_ORE.get(), ModItems.RAW_SCORCHED_METAL.get()));
+        add(ModBlocks.NETHER_PYRITE_ORE.get(),
+                block -> createMultipleOreDrops(ModBlocks.NETHER_PYRITE_ORE.get(), ModItems.NETHER_PYRITE.get(),2,6));
+        add(ModBlocks.NETHER_RUBY_ORE.get(),
+                block -> createOreDrop(ModBlocks.NETHER_RUBY_ORE.get(), ModItems.NETHER_RUBY.get()));
+        add(ModBlocks.DEATHSILVER_ORE.get(),
+                block -> createOreDrop(ModBlocks.DEATHSILVER_ORE.get(), ModItems.DEATHSILVER_NUGGET.get()));
+        add(ModBlocks.VOID_MATTER_ORE.get(),
+                block -> createOreDrop(ModBlocks.VOID_MATTER_ORE.get(), ModItems.VOID_MATTER.get()));
+    }
+
+    protected LootTable.Builder createMultipleOreDrops(Block pBlock, Item item, float minDrops, float maxDrops) {
+        HolderLookup.RegistryLookup<Enchantment> registrylookup = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
+        return this.createSilkTouchDispatchTable(pBlock,
+                this.applyExplosionDecay(pBlock, LootItem.lootTableItem(item)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(minDrops, maxDrops)))
+                        .apply(ApplyBonusCount.addOreBonusCount(registrylookup.getOrThrow(Enchantments.FORTUNE)))));
+    }
+
+    @Override
+    protected Iterable<Block> getKnownBlocks() {
+        return ModBlocks.BLOCKS.getEntries().stream().map(Holder::value)::iterator;
+    }
+}

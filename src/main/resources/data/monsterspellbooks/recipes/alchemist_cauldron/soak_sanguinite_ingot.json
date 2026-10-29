@@ -1,0 +1,14 @@
+{
+  "type": "irons_spellbooks:alchemist_cauldron_brew",
+  "base_fluid": {
+    "Amount": 500,
+    "FluidName": "monsterspellbooks:raw_sanguinite"
+  },
+  "byproduct": {
+    "item": "monsterspellbooks:sanguinite_ingot"
+  },
+  "input": {
+    "tag": "monsterspellbooks:superior_arcane_ingot_base"
+  },
+  "results": []
+}

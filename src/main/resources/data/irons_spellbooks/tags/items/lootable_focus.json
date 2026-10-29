@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [],
+  "remove": [
+    "#monsterspellbooks:necro_focus",
+    "minecraft:comparator"
+  ]
+}

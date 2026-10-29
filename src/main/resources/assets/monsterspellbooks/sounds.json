@@ -1,0 +1,246 @@
+{
+  "spell_brimstone_fire": {
+    "subtitles": "sounds.monsterspellbooks.spell_brimstone_fire",
+    "sounds": [
+      "monsterspellbooks:spell_brimstone_fire"
+    ]
+  },
+
+  "spell_energy_fire": {
+  "subtitles": "sounds.monsterspellbooks.spell_energy_fire",
+  "sounds": [
+    "monsterspellbooks:spell_energy_fire"
+  ]
+  },
+  "spell_scream": {
+    "subtitles": "sounds.monsterspellbooks.spell_scream",
+    "sounds": [
+      "monsterspellbooks:spell_scream"
+    ]
+  },
+  "spell_soul_scream": {
+    "subtitles": "sounds.monsterspellbooks.spell_soul_scream",
+    "sounds": [
+      "monsterspellbooks:spell_soul_scream"
+    ]
+  },
+  "spell_endersent_smash_cast": {
+    "subtitles": "sounds.monsterspellbooks.spell_endersent_smash_cast",
+    "sounds": [
+      "monsterspellbooks:spell_endersent_smash_cast"
+    ]
+  },
+  "spell_gravity_wave": {
+    "subtitles": "sounds.monsterspellbooks.spell_gravity_wave",
+    "sounds": [
+      "monsterspellbooks:spell_gravity_wave"
+    ]
+  },
+  "spell_graveyard_fissure": {
+    "subtitles": "sounds.monsterspellbooks.spell_graveyard_fissure",
+    "sounds": [
+      "monsterspellbooks:spell_graveyard_fissure"
+    ]
+  },
+  "spell_guardian_laser_loop": {
+    "subtitles": "sounds.monsterspellbooks.spell_guardian_laser_loop",
+    "sounds": [
+      "monsterspellbooks:spell_guardian_laser_loop"
+    ]
+  },
+  "spell_brimstone_sawblade_shot": {
+    "subtitles": "sounds.monsterspellbooks.spell_brimstone_sawblade_shot",
+    "sounds": [
+      "monsterspellbooks:spell_brimstone_sawblade_shot"
+    ]
+  },
+  "spell_brimstone_sawblade_hit": {
+    "subtitles": "sounds.monsterspellbooks.spell_brimstone_sawblade_hit",
+    "sounds": [
+      "monsterspellbooks:spell_brimstone_sawblade_hit"
+    ]
+  },
+  "spell_soul_wizard_summon": {
+    "subtitles": "sounds.monsterspellbooks.spell_soul_wizard_summon",
+    "sounds": [
+      "monsterspellbooks:spell_soul_wizard_summon"
+    ]
+  },
+  "spell_whisperer_summon_start": {
+    "subtitles": "sounds.monsterspellbooks.spell_whisperer_summon_start",
+    "sounds": [
+      "monsterspellbooks:spell_whisperer_summon_start"
+    ]
+  },
+  "spell_ender_comet_cast": {
+    "subtitles": "sounds.monsterspellbooks.spell_ender_comet_cast",
+    "sounds": [
+      "monsterspellbooks:spell_ender_comet_cast"
+    ]
+  },
+  "spell_ender_comet_shot": {
+    "subtitles": "sounds.monsterspellbooks.spell_ender_comet_shot",
+    "sounds": [
+      "monsterspellbooks:spell_ender_comet_shot"
+    ]
+  },
+  "spell_volt_multishot_cast": {
+    "subtitles": "sounds.monsterspellbooks.spell_volt_multishot_cast",
+    "sounds": [
+      "monsterspellbooks:spell_volt_multishot_cast"
+    ]
+  },
+  "spell_volt_arrow_shot": {
+    "subtitles": "sounds.monsterspellbooks.spell_volt_arrow_shot",
+    "sounds": [
+      "monsterspellbooks:spell_volt_arrow_shot"
+    ]
+  },
+  "spell_volt_arrow_hit": {
+    "subtitles": "sounds.monsterspellbooks.spell_volt_arrow_hit",
+    "sounds": [
+      "monsterspellbooks:spell_volt_arrow_hit"
+    ]
+  },
+
+  "spell_corrupted_beacon_fire": {
+    "subtitles": "sounds.monsterspellbooks.spell_corrupted_beacon_fire",
+    "sounds": [
+      "monsterspellbooks:spell_corrupted_beacon_fire"
+    ]
+  },
+
+  "spell_corrupted_beacon_loop": {
+    "subtitles": "sounds.monsterspellbooks.spell_corrupted_beacon_loop",
+    "sounds": [
+      "monsterspellbooks:spell_corrupted_beacon_loop"
+    ]
+  },
+
+  "spell_wind_wave": {
+    "subtitles": "sounds.monsterspellbooks.spell_wind_wave",
+    "sounds": [
+      "monsterspellbooks:spell_wind_wave"
+    ]
+  },
+
+  "spell_evocation_boost": {
+    "subtitles": "sounds.monsterspellbooks.spell_evocation_boost",
+    "sounds": [
+      "monsterspellbooks:spell_evocation_boost"
+    ]
+  },
+
+  "spell_spore_explosion": {
+    "subtitles": "sounds.monsterspellbooks.spell_spore_explosion",
+    "sounds": [
+      "monsterspellbooks:spell_spore_explosion"
+    ]
+  },
+
+  "spell_construct_summon": {
+    "subtitles": "sounds.monsterspellbooks.spell_construct_summon",
+    "sounds": [
+      "monsterspellbooks:spell_construct_summon"
+    ]
+  },
+
+  "spell_necro_cast": {
+  "subtitles": "sounds.monsterspellbooks.spell_necro_cast",
+  "sounds": [
+    "monsterspellbooks:spell_necro_cast"
+  ]
+  },
+
+  "whisperer_ambient": {
+    "subtitles": "sounds.monsterspellbooks.whisperer_ambient",
+    "sounds": [
+      "monsterspellbooks:entity/whisperer_ambient"
+    ]
+  },
+  "whisperer_melee_attack": {
+    "subtitles": "sounds.monsterspellbooks.whisperer_melee_attack",
+    "sounds": [
+      "monsterspellbooks:entity/whisperer_melee_attack"
+    ]
+  },
+
+  "whisperer_death": {
+    "subtitles": "sounds.monsterspellbooks.whisperer_death",
+    "sounds": [
+      "monsterspellbooks:entity/whisperer_death"
+    ]
+  },
+
+  "leapleaf_ambient": {
+    "subtitles": "sounds.monsterspellbooks.leapleaf_ambient",
+    "sounds": [
+      "monsterspellbooks:entity/leapleaf_ambient"
+    ]
+  },
+  "leapleaf_death": {
+    "subtitles": "sounds.monsterspellbooks.leapleaf_death",
+    "sounds": [
+      "monsterspellbooks:entity/leapleaf_death"
+    ]
+  },
+
+  "leapleaf_hurt": {
+    "subtitles": "sounds.monsterspellbooks.leapleaf_hurt",
+    "sounds": [
+      "monsterspellbooks:entity/leapleaf_hurt"
+    ]
+  },
+
+  "leapleaf_leap": {
+    "subtitles": "sounds.monsterspellbooks.leapleaf_leap",
+    "sounds": [
+      "monsterspellbooks:entity/leapleaf_leap"
+    ]
+  },
+
+  "leapleaf_melee_attack": {
+    "subtitles": "sounds.monsterspellbooks.leapleaf_melee_attack",
+    "sounds": [
+      "monsterspellbooks:entity/leapleaf_melee_attack"
+    ]
+  },
+
+  "leapleaf_step": {
+    "subtitles": "sounds.monsterspellbooks.leapleaf_step",
+    "sounds": [
+      "monsterspellbooks:entity/leapleaf_step"
+    ]
+  },
+
+  "soul_wizard_hurt": {
+    "subtitles": "sounds.monsterspellbooks.soul_wizard_hurt",
+    "sounds": [
+      "monsterspellbooks:entity/soul_wizard_hurt"
+    ]
+  },
+  "blastling_ambient": {
+    "subtitles": "sounds.monsterspellbooks.blastling_ambient",
+    "sounds": [
+      "monsterspellbooks:entity/blastling_ambient"
+    ]
+  },
+  "blastling_step": {
+    "subtitles": "sounds.monsterspellbooks.blastling_step",
+    "sounds": [
+      "monsterspellbooks:entity/blastling_step"
+    ]
+  },
+  "blastling_hurt": {
+    "subtitles": "sounds.monsterspellbooks.blastling_hurt",
+    "sounds": [
+      "monsterspellbooks:entity/blastling_hurt"
+    ]
+  },
+  "blastling_death": {
+    "subtitles": "sounds.monsterspellbooks.blastling_death",
+    "sounds": [
+      "monsterspellbooks:entity/blastling_death"
+    ]
+  }
+}

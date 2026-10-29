@@ -1,0 +1,10 @@
+{
+  "conditions": [
+    {
+      "condition": "forge:loot_table_id",
+      "loot_table_id": "minecraft:chests/ancient_city"
+    }
+  ],
+  "type": "monsterspellbooks:add_to_table",
+  "loot_table": "monsterspellbooks:chests/ancient_city_items"
+}

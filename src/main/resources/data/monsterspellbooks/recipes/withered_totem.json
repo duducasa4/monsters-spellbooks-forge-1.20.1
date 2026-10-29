@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "monsterspellbooks:spectrite_ingot"
+    },
+    "B": {
+      "item": "monsterspellbooks:vile_bone"
+    },
+    "C": {
+      "item": "minecraft:soul_sand"
+    }
+  },
+  "pattern": [
+    "BBB",
+    "CAC",
+    " C "
+  ],
+  "result": {
+    "count": 1,
+    "item": "monsterspellbooks:withered_totem"
+  }
+}

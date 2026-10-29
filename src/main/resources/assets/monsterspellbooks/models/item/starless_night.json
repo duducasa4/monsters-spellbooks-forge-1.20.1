@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/starless_night_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/starless_night_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/starless_night_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/starless_night_gui"
+		}
+	}
+}

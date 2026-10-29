@@ -1,0 +1,47 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "monsterspellbooks:spectrite_ingot"
+    },
+    "B": {
+      "item": "monsterspellbooks:wither_alloy_ingot"
+    },
+    "C": {
+      "item": "monsterspellbooks:poison_biter"
+    },
+    "D": {
+      "item": "monsterspellbooks:superior_weapon_parts"
+    }
+  },
+  "pattern": [
+    "AAB",
+    " C ",
+    "D  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "monsterspellbooks:reaper_sickle",
+    "nbt": {
+      "irons_spellbooks:affinity_data": {
+        "bonuses": {
+          "monsterspellbooks:vile_slash": 1
+        }
+      },
+      "irons_spellbooks:spell_container": {
+        "data": [
+          {
+            "id": "monsterspellbooks:vile_slash",
+            "index": 0,
+            "level": 5,
+            "locked": true
+          }
+        ],
+        "maxSpells": 1,
+        "mustEquip": false,
+        "spellWheel": true
+      }
+    }
+  }
+}

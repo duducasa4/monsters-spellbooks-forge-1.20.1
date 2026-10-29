@@ -1,0 +1,99 @@
+package net.redreaper.monsterspellbooks.events;
+
+import io.redspace.ironsspellbooks.api.util.Utils;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.WitherSkeleton;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.entity.living.*;
+import net.redreaper.monsterspellbooks.entity.living.draugr.DraugrEliteVindicatorEntity;
+import net.redreaper.monsterspellbooks.entity.living.draugr.DraugrEvokerEntity;
+import net.redreaper.monsterspellbooks.entity.living.draugr.DraugrPillagerEntity;
+import net.redreaper.monsterspellbooks.entity.living.draugr.DraugrVindicatorEntity;
+import net.redreaper.monsterspellbooks.entity.living.herobrine_cult.HerobrineCultistAssassinEntity;
+import net.redreaper.monsterspellbooks.entity.living.herobrine_cult.HerobrineCultistMageEntity;
+import net.redreaper.monsterspellbooks.entity.living.illagers.IllagerEnchanterEntity;
+import net.redreaper.monsterspellbooks.entity.living.illagers.IllagerFireologerEntity;
+import net.redreaper.monsterspellbooks.entity.living.illagers.IllagerIceologerEntity;
+import net.redreaper.monsterspellbooks.entity.living.summons.*;
+import net.redreaper.monsterspellbooks.init.ModEntities;
+import net.redreaper.monsterspellbooks.utils.ModUtils;
+
+@SuppressWarnings("removal")
+@Mod.EventBusSubscriber(modid = MonstersSpellbooks.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public class CommonSetup {
+    @SubscribeEvent
+    public static void onAttributeCreateEvent(EntityAttributeCreationEvent event) {
+        event.put(ModEntities.REDSNAKE_WITHER_SKELETON.get(), WitherSkeleton.createAttributes().build());
+        event.put(ModEntities.DWARVEN_SPHERE.get(), DwarvenSphereEntity.createAttributes().build());
+        event.put(ModEntities.DWARVEN_SLICER.get(), DwarvenSlicerEntity.createAttributes().build());
+        event.put(ModEntities.REDSTONE_ELEMENTAL.get(), RedstoneElementalEntity.createAttributes().build());
+        event.put(ModEntities.SOUL_WRAITH.get(), SoulWraithEntity.createAttributes().build());
+        event.put(ModEntities.AEGIS.get(), AegisEntity.createAttributes().build());
+        event.put(ModEntities.DRIPPLER.get(), DripplerEntity.createAttributes().build());
+        event.put(ModEntities.SPRIGGAN.get(), SprigganEntity.createAttributes().build());
+        event.put(ModEntities.WITHER_WARLOCK.get(), WitherWarlockEntity.createAttributes().build());
+        event.put(ModEntities.WITHER_WARRIOR.get(), WitherWarriorEntity.createAttributes().build());
+        event.put(ModEntities.SUMMONED_WITHER_WARRIOR.get(), WitherWarriorEntity.createAttributes().build());
+        event.put(ModEntities.JUNGLE_WHISPERER.get(), JungleWhispererEntity.createAttributes().build());
+        event.put(ModEntities.JUNGLE_LEAPLEAF.get(), JungleLeapleafEntity.createAttributes().build());
+        event.put(ModEntities.HEROBRINE_CULTIST_MAGE.get(), HerobrineCultistMageEntity.createAttributes().build());
+        event.put(ModEntities.HEROBRINE_CULTIST_ASSASSIN.get(), HerobrineCultistAssassinEntity.createAttributes().build());
+        event.put(ModEntities.ILLAGER_ENCHANTER.get(), IllagerEnchanterEntity.createAttributes().build());
+        event.put(ModEntities.ILLAGER_ICEOLOGER.get(), IllagerIceologerEntity.createAttributes().build());
+        event.put(ModEntities.ILLAGER_FIREOLOGER.get(), IllagerFireologerEntity.createAttributes().build());
+        event.put(ModEntities.DRAUGR_EVOKER.get(), DraugrEvokerEntity.createAttributes().build());
+        event.put(ModEntities.DRAUGR_VINDICATOR.get(), DraugrVindicatorEntity.createAttributes().build());
+        event.put(ModEntities.DRAUGR_ELITE_VINDICATOR.get(), DraugrEliteVindicatorEntity.createAttributes().build());
+        event.put(ModEntities.DRAUGR_PILLAGER.get(), DraugrPillagerEntity.createAttributes().build());
+        event.put(ModEntities.PRISMARINE_KEEPER.get(), PrismarineKeeper.createAttributes().build());
+        event.put(ModEntities.VILE_SKELETON.get(), VileSkeletonEntity.createAttributes().build());
+        event.put(ModEntities.MAGMA_ATRONACH.get(), MagmaAtronachEntity.createAttributes().build());
+        event.put(ModEntities.BLASTLING.get(), BlastlingEntity.createAttributes().build());
+        event.put(ModEntities.POISON_QUILL_VINE.get(), PoisonQuillVineEntity.createAttributes().build());
+        event.put(ModEntities.LIVING_LEAF_CRYSTAL.get(), LivingLeafCrystalEntity.createAttributes().build());
+        event.put(ModEntities.ORBITAL_SNOWBALL.get(), OrbitalSnowballEntity.createAttributes().build());
+        event.put(ModEntities.WRATH.get(), WrathEntity.createAttributes().build());
+        event.put(ModEntities.RANCOR_PHANTOM.get(), RancorPhantomEntity.createAttributes().build());
+        event.put(ModEntities.SUMMONED_PRISMARINE_KEEPER.get(), SummonedPrismarineKeeper.createAttributes().build());
+        event.put(ModEntities.SUMMONED_AEGIS.get(), SummonedAegisEntity.createAttributes().build());
+        event.put(ModEntities.SUMMONED_VILE_SKELETON.get(), SummonedVileSkeletonEntity.createAttributes().build());
+        event.put(ModEntities.SUMMONED_DEATH_KNIGHT.get(), DeathKnightEntity.createAttributes().build());
+        event.put(ModEntities.SOUL_WIZARD.get(), SoulWizardEntity.createAttributes().build());
+        event.put(ModEntities.DWARVEN_SWARM_DRONE.get(), DwarvenSwarmDroneEntity.createAttributes().build());
+        event.put(ModEntities.ICE_SERPEANT.get(), IceSerpeantEntity.createAttributes().build());
+    }
+
+    @SubscribeEvent
+    public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event){
+
+        event.register(ModEntities.DRIPPLER.get(), SpawnPlacements.Type.NO_RESTRICTIONS, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.DWARVEN_SPHERE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.SPRIGGAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.JUNGLE_WHISPERER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.JUNGLE_LEAPLEAF.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.MAGMA_ATRONACH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.SOUL_WRAITH.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+        event.register(ModEntities.WITHER_WARLOCK.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(ModEntities.WITHER_WARRIOR.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.OR);
+        event.register(ModEntities.BLASTLING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> Utils.checkMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+        event.register(ModEntities.REDSTONE_ELEMENTAL.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                (type, serverLevelAccessor, spawnType, blockPos, random) -> ModUtils.checkUndergroundMonsterSpawnRules(serverLevelAccessor, spawnType, blockPos, random), SpawnPlacementRegisterEvent.Operation.REPLACE);
+
+    }
+}

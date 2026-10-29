@@ -1,0 +1,26 @@
+package net.redreaper.monsterspellbooks.particle;
+
+import net.minecraft.core.particles.ParticleOptions;
+import net.redreaper.monsterspellbooks.init.ModParticleTypes;
+
+public class ModParticleHelper {
+    public static final ParticleOptions ANCIENT_SPARKS = ModParticleTypes.ANCIENT_SPARKS_PARTICLE.get();
+    public static final ParticleOptions REDSTONE_SPARKS = ModParticleTypes.REDSTONE_SPARKS_PARTICLE.get();
+    public static final ParticleOptions REAPER_FIRE = ModParticleTypes.REAPER_FIRE_PARTICLE.get();
+    public static final ParticleOptions FRENZY_FIRE = ModParticleTypes.FRENZY_FIRE_PARTICLE.get();
+    public static final ParticleOptions BRIMSTONE_FIRE = ModParticleTypes.BRIMSTONE_FIRE_PARTICLE.get();
+    public static final ParticleOptions SOUL_FIRE = ModParticleTypes.SOUL_FIRE_PARTICLE.get();
+    public static final ParticleOptions PUTRESCENCE_BUBBLE = ModParticleTypes.PUTRESCENCE_BUBBLE_PARTICLE.get();
+    public static final ParticleOptions STEAM = ModParticleTypes.STEAM.get();
+    public static final ParticleOptions ELECTRIC_SMOKE = ModParticleTypes.ELECTRIC_SMOKE.get();
+    public static final ParticleOptions SOUL_SMOKE = ModParticleTypes.SOUL_SMOKE.get();
+    public static final ParticleOptions ENDER_SMOKE = ModParticleTypes.ENDER_SMOKE.get();
+    public static final ParticleOptions POISON_SMOKE = ModParticleTypes.POISON_SMOKE.get();
+    public static final ParticleOptions BONE_FRAGMENTS = ModParticleTypes.BONE_FRAGMENTS.get();
+    public static final ParticleOptions SPACE_SHARD = ModParticleTypes.SPACE_SHARD.get();
+    public static final ParticleOptions HYDRO_BUBBLE = ModParticleTypes.HYDRO_BUBBLE.get();
+    public static final ParticleOptions ACIDIC_VENOM_BUBBLE = ModParticleTypes.ACIDIC_VENOM_BUBBLE.get();
+    public static final ParticleOptions VITAL_SPARKS = ModParticleTypes.VITAL_SPARKS.get();
+    public static final ParticleOptions SIMPLE_SOUL_CHAIN = ModParticleTypes.SIMPLE_SOUL_CHAIN.get();
+
+}

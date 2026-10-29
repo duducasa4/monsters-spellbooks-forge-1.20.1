@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "monsterspellbooks:pearl_marble_tiles"
+  },
+  "result": "monsterspellbooks:pearl_marble_tile_wall",
+  "count": 1
+}

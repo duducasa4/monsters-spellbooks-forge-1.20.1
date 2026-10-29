@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "monsterspellbooks:deathsilver_nugget",
+    "monsterspellbooks:dwarven_alloy_nugget",
+    "#forge:nuggets/orichalcum",
+    "monsterspellbooks:white_gold_nugget",
+    "monsterspellbooks:wither_alloy_nugget"
+  ]
+}

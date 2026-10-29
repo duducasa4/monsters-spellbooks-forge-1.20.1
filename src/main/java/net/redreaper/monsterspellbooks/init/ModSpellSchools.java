@@ -1,0 +1,56 @@
+package net.redreaper.monsterspellbooks.init;
+
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.api.spells.SchoolType;
+import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
+import io.redspace.ironsspellbooks.registries.SoundRegistry;
+import net.minecraft.ChatFormatting;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.DeferredRegister;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+
+import java.util.function.Supplier;
+
+import static io.redspace.ironsspellbooks.api.registry.SchoolRegistry.SCHOOL_REGISTRY_KEY;
+
+public class ModSpellSchools  {
+    private static final DeferredRegister<SchoolType> MONSTER_SCHOOLS = DeferredRegister.create(SCHOOL_REGISTRY_KEY, MonstersSpellbooks.MOD_ID);
+
+    public static void register(IEventBus eventBus)
+    {
+        MONSTER_SCHOOLS.register(eventBus);
+    }
+
+    private static Supplier<SchoolType> registerSchool(SchoolType type)
+    {
+        return MONSTER_SCHOOLS.register(type.getId().getPath(), () -> type);
+    }
+
+    public static final ResourceLocation NECRO_RESOURCE = MonstersSpellbooks.id("necro");
+    public static final ResourceLocation AERO_RESOURCE = MonstersSpellbooks.id("aero");
+
+    public static final Supplier<SchoolType> NECRO = registerSchool(new SchoolType
+            (
+                    NECRO_RESOURCE,
+                    ModTags.Items.NECRO_FOCUS,
+                    Component.translatable("school.monsterspellbooks.necro").withStyle(Style.EMPTY.withColor(7274449)),
+                    ModAtributeRegistry.NECRO_MAGIC_POWER,
+                    ModAtributeRegistry.NECRO_MAGIC_RESIST,
+                    ModSounds.NECRO_CAST,
+                    ModDamageTypes.NECRO_MAGIC
+            ));
+
+    public static final Supplier<SchoolType> AERO = registerSchool(new SchoolType
+            (
+                    AERO_RESOURCE,
+                    io.redspace.ironsspellbooks.util.ModTags.EVOCATION_FOCUS,
+                    Component.translatable("school.monsterspellbooks.aero").withStyle(Style.EMPTY.withColor(11904458)),
+                    AttributeRegistry.EVOCATION_SPELL_POWER,
+                    AttributeRegistry.EVOCATION_MAGIC_RESIST,
+                    SoundRegistry.GUST_CAST,
+                    ISSDamageTypes.EVOCATION_MAGIC
+            ));
+}

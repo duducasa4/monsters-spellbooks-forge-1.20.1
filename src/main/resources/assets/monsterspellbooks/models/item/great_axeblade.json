@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/great_axeblade_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/great_axeblade_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/great_axeblade_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/great_axeblade_gui"
+		}
+	}
+}

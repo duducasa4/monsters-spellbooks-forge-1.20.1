@@ -1,0 +1,123 @@
+package net.redreaper.monsterspellbooks.init;
+
+import net.minecraftforge.common.ForgeMod;
+import io.redspace.ironslib.registry.IronsLibRegistries;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.registries.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import net.redreaper.monsterspellbooks.effect.*;
+
+public class ModMobEffects {
+    public static final DeferredRegister<MobEffect>MOB_EFFECT_DEFERRED_REGISTER = DeferredRegister.create(Registries.MOB_EFFECT, MonstersSpellbooks.MOD_ID);
+
+
+    public static final RegistryObject<MobEffect> PALADINS_DEFENSE = MOB_EFFECT_DEFERRED_REGISTER.register("paladins_defense", () -> new PaladinDefenseMobEffect(MobEffectCategory.BENEFICIAL, 12691004 ));
+
+    public static final RegistryObject<MobEffect> BRIMSTONE_FRENZY = MOB_EFFECT_DEFERRED_REGISTER.register("brimstone_frenzy", () -> new BrimstoneFrenzyMobEffect(MobEffectCategory.BENEFICIAL, 16748915)
+            .addAttributeModifier(AttributeRegistry.FIRE_SPELL_POWER, MonstersSpellbooks.id("mobeffect_brimstone_frenzy"), BrimstoneFrenzyMobEffect.FIRE_SPELL_POWER_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(AttributeRegistry.MANA_REGEN, MonstersSpellbooks.id("mobeffect_brimstone_frenzy"), BrimstoneFrenzyMobEffect.MANA_REGEN_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> OVERHEAT = MOB_EFFECT_DEFERRED_REGISTER.register("overheat", () -> new OverheatMobEffect(MobEffectCategory.BENEFICIAL, 16736559)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, MonstersSpellbooks.id("mobeffect_overheat"), OverheatMobEffect.ATTACK_DAMAGE_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(AttributeRegistry.FIRE_SPELL_POWER, MonstersSpellbooks.id("mobeffect_overheat"), OverheatMobEffect.FIRE_SPELL_POWER_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> BLOODLUST = MOB_EFFECT_DEFERRED_REGISTER.register("bloodlust", () -> new BloodLustMobEffect(MobEffectCategory.BENEFICIAL, 4325376)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, MonstersSpellbooks.id("mobeffect_bloodlust"), BloodLustMobEffect.ATTACK_DAMAGE_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, MonstersSpellbooks.id("mobeffect_bloodlust"), BloodLustMobEffect.ATTACK_SPEED_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, MonstersSpellbooks.id("mobeffect_bloodlust"), BloodLustMobEffect.SPEED_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> MADNESS = MOB_EFFECT_DEFERRED_REGISTER.register("madness", () -> new MadnessMobEffect(MobEffectCategory.HARMFUL, 16736559)
+            .addAttributeModifier(AttributeRegistry.MAX_MANA, MonstersSpellbooks.id("mobeffect_madness"), MadnessMobEffect.MANA_REDUCTION_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> PARALYSIS = MOB_EFFECT_DEFERRED_REGISTER.register("paralysis", () -> new ParalysisMobEffect(MobEffectCategory.HARMFUL, 16777025)
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, MonstersSpellbooks.id("mobeffect_paralysis"), ParalysisMobEffect.SLOWNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+    public static final RegistryObject<MobEffect> HEAVY_BODY = MOB_EFFECT_DEFERRED_REGISTER.register("heavy_body", () -> new HeavyBodyMobEffect(MobEffectCategory.HARMFUL, 9175256)
+            .addAttributeModifier(ForgeMod.ENTITY_GRAVITY.get(), MonstersSpellbooks.id("mobeffect_heavy_body"), HeavyBodyMobEffect.GRAVITY_PER_LEVEL, AttributeModifier.Operation.ADDITION).cast());
+    public static final RegistryObject<MobEffect> STUNNED = MOB_EFFECT_DEFERRED_REGISTER.register("stunned", () -> new StunnedMobEffect(MobEffectCategory.HARMFUL, 1315355)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, MonstersSpellbooks.id("mobeffect_stunned"), StunnedMobEffect.ATTACK_SLOWNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> RAMPAGING = MOB_EFFECT_DEFERRED_REGISTER.register("rampaging", () -> new RampagingMobEffect(MobEffectCategory.BENEFICIAL, 1315355)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, MonstersSpellbooks.id("mobeffect_rampaging"), RampagingMobEffect.ATTACK_SPEED_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> LETHARGY = MOB_EFFECT_DEFERRED_REGISTER.register("lethargy", () -> new LethargyMobEffect(MobEffectCategory.HARMFUL, 1315355)
+            .addAttributeModifier(IronsLibRegistries.AttributeRegistry.HEALING_RECEIVED, MonstersSpellbooks.id("mobeffect_lethargy"), LethargyMobEffect.HEAL_DRAIN_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+    public static final RegistryObject<MobEffect> INFLAMMABLE = MOB_EFFECT_DEFERRED_REGISTER.register("inflammable", () -> new InflammableMobEffect(MobEffectCategory.HARMFUL, 16736038)
+            .addAttributeModifier(AttributeRegistry.FIRE_MAGIC_RESIST, MonstersSpellbooks.id("mobeffect_inflammable"), InflammableMobEffect.FIRE_WEAKNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> FROST_COATING = MOB_EFFECT_DEFERRED_REGISTER.register("frost_coating", () -> new FrostCoatingMobEffect(MobEffectCategory.BENEFICIAL, 14678523)
+            .addAttributeModifier(Attributes.ARMOR, MonstersSpellbooks.id("mobeffect_frost_coating"), FrostCoatingMobEffect.ARMOR_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(AttributeRegistry.SPELL_RESIST, MonstersSpellbooks.id("mobeffect_frost_coating"), FrostCoatingMobEffect.SPELL_RESISTANCE_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+     public static final RegistryObject<MobEffect> FEAR = MOB_EFFECT_DEFERRED_REGISTER.register("fear", () -> new FearMobEffect(MobEffectCategory.HARMFUL, 2818100)
+            .addAttributeModifier(AttributeRegistry.CAST_TIME_REDUCTION, MonstersSpellbooks.id("mobeffect_fear"), FearMobEffect.CAST_TIME_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+    public static final RegistryObject<MobEffect> MANA_REGEN = MOB_EFFECT_DEFERRED_REGISTER.register("mana_regen", () -> new ManaRegenMobEffect(MobEffectCategory.BENEFICIAL, 12238583)
+            .addAttributeModifier(AttributeRegistry.MANA_REGEN, MonstersSpellbooks.id("mobeffect_mana_regen"), ManaRegenMobEffect.MANA_REGEN_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+    public static final RegistryObject<MobEffect> OBSIDIAN_SKIN = MOB_EFFECT_DEFERRED_REGISTER.register("obsidian_skin", () -> new ObsidianSkinMobEffect(MobEffectCategory.BENEFICIAL, 3876692)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, MonstersSpellbooks.id("mobeffect_obsidian_skin"), ObsidianSkinMobEffect.ATTACK_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(Attributes.ARMOR, MonstersSpellbooks.id("mobeffect_obsidian_skin"), ObsidianSkinMobEffect.DEFENSE_PER_LEVEL, AttributeModifier.Operation.ADDITION)
+            .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, MonstersSpellbooks.id("mobeffect_obsidian_skin"), ObsidianSkinMobEffect.KNOCKBACK_RESISTANCE_PER_LEVEL, AttributeModifier.Operation.ADDITION).cast());
+    public static final RegistryObject<MobEffect> SOUL_BOOSTED = MOB_EFFECT_DEFERRED_REGISTER.register("soul_boosted", () -> new SoulBoostedMobEffect(MobEffectCategory.BENEFICIAL, 3128771)
+            .addAttributeModifier(AttributeRegistry.MANA_REGEN, MonstersSpellbooks.id("mobeffect_soul_boosted"), SoulBoostedMobEffect.MANA_REGEN_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(AttributeRegistry.CASTING_MOVESPEED, MonstersSpellbooks.id("mobeffect_soul_boosted"), SoulBoostedMobEffect.CASTING_SPEED_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(AttributeRegistry.CAST_TIME_REDUCTION, MonstersSpellbooks.id("mobeffect_soul_boosted"), SoulBoostedMobEffect.COOLDOWN_REDUCTION_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(ModAtributeRegistry.NECRO_MAGIC_POWER, MonstersSpellbooks.id("mobeffect_soul_boosted"), SoulBoostedMobEffect.NECRO_POWER_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+
+    public static final RegistryObject<MobEffect> MANA_ABSORPTION = MOB_EFFECT_DEFERRED_REGISTER.register("mana_absorption", () -> new ManaAbsorptionMobEffect(MobEffectCategory.BENEFICIAL, 4259780)
+            .addAttributeModifier(ASAttributeRegistry.MANA_STEAL, MonstersSpellbooks.id("mobeffect_mana_absorption"), ManaAbsorptionMobEffect.MANA_STEAL_PER_LEVEL, AttributeModifier.Operation.ADDITION).cast());
+
+    public static final RegistryObject<MobEffect> SOUL_FORM = MOB_EFFECT_DEFERRED_REGISTER.register("soul_form", () -> new SoulFormMobEffect(MobEffectCategory.BENEFICIAL, 6354426)
+            .addAttributeModifier(ASAttributeRegistry.EVASIVE, MonstersSpellbooks.id("mobeffect_soul_form"), SoulFormMobEffect.EVASION_PER_LEVEL, AttributeModifier.Operation.ADDITION)
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, MonstersSpellbooks.id("mobeffect_soul_form"), SoulFormMobEffect.SPEED_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, MonstersSpellbooks.id("mobeffect_soul_form"), SoulFormMobEffect.WEAKNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_BASE).cast());
+    public static final RegistryObject<MobEffect> DECAYING_TOUCH = MOB_EFFECT_DEFERRED_REGISTER.register("decaying_touch", () -> new DecayingTouch(MobEffectCategory.HARMFUL, 16711680));
+    public static final RegistryObject<MobEffect> FOCUS = MOB_EFFECT_DEFERRED_REGISTER.register("focus", () -> new FocusMobEffect(MobEffectCategory.BENEFICIAL, 16711680));
+    public static final RegistryObject<MobEffect> SOUL_REND = MOB_EFFECT_DEFERRED_REGISTER.register("soul_rend", () -> new SoulRendMobEffect(MobEffectCategory.HARMFUL, 6354426)
+            .addAttributeModifier(AttributeRegistry.MANA_REGEN, MonstersSpellbooks.id("mobeffect_soul_rend"), SoulRendMobEffect.MANA_SLOWNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL).cast());
+
+    public static final RegistryObject<MobEffect> HEAL_CUT = MOB_EFFECT_DEFERRED_REGISTER.register("heal_cut", HealCutMobEffect::new);
+    public static final RegistryObject<MobEffect> SPACE_ANCHORED = MOB_EFFECT_DEFERRED_REGISTER.register("space_anchored", SpaceAnchoredMobEffect::new);
+    public static final RegistryObject<MobEffect> RIPTIDE_DASH = MOB_EFFECT_DEFERRED_REGISTER.register("riptide_dash", () -> new RiptideDashMobEffect(MobEffectCategory.BENEFICIAL, 8028868));
+    public static final RegistryObject<MobEffect> LICHDOM = MOB_EFFECT_DEFERRED_REGISTER.register("lichdom", LichdomMobEffect::new);
+    public static final RegistryObject<MobEffect> EFFECT_OF_UNDYING = MOB_EFFECT_DEFERRED_REGISTER.register("effect_of_undying", EffectOfUndyingEffect::new);
+    public static final RegistryObject<MobEffect>  SOUL_ROT=MOB_EFFECT_DEFERRED_REGISTER.register("soul_rot",SoulRotMobEffect::new);
+    public static final RegistryObject<MobEffect> BLIZZARD_ASPECT = MOB_EFFECT_DEFERRED_REGISTER.register("blizzard_aspect", () -> new BlizzardAspectMobEffect(MobEffectCategory.BENEFICIAL, 6653361));
+    public static final RegistryObject<MobEffect> CRUSHING_PRESENCE = MOB_EFFECT_DEFERRED_REGISTER.register("crushing_presence", () -> new CrushingPresenceMobEffect(MobEffectCategory.BENEFICIAL, 4798975));
+    public static final RegistryObject<MobEffect> CURSE = MOB_EFFECT_DEFERRED_REGISTER.register("curse", CursedMobEffect::new);
+    public static final RegistryObject<MobEffect> REAPER_ASPECT = MOB_EFFECT_DEFERRED_REGISTER.register("reaper_aspect", () -> new ReaperAspectMobEffect(MobEffectCategory.BENEFICIAL, 57744 ));
+    public static final RegistryObject<MobEffect> FEARSOME = MOB_EFFECT_DEFERRED_REGISTER.register("fearsome", () -> new FearsomeMobEffect(MobEffectCategory.BENEFICIAL, 1315355 ));
+    public static final RegistryObject<MobEffect> CHARMING = MOB_EFFECT_DEFERRED_REGISTER.register("charming", () -> new CharmingMobEffect(MobEffectCategory.BENEFICIAL, 15497727 ));
+    public static final RegistryObject<MobEffect> SHADOW_SHROUD = MOB_EFFECT_DEFERRED_REGISTER.register("shadow_shroud", () -> new ShadowShroudMobEffect(MobEffectCategory.BENEFICIAL, 8467669 ));
+    public static final RegistryObject<MobEffect> VOID_TOUCHED = MOB_EFFECT_DEFERRED_REGISTER.register("void_touched", () -> new VoidTouchedEffect(MobEffectCategory.HARMFUL, 1114193 ));
+    public static final RegistryObject<MobEffect> FORGED_RESISTANCE = MOB_EFFECT_DEFERRED_REGISTER.register("forged_resistance", () -> new ForgedResistance(MobEffectCategory.HARMFUL, 16748915 ));
+    public static final RegistryObject<MobEffect> BLEEDING = MOB_EFFECT_DEFERRED_REGISTER.register("bleeding", () -> new BleedingMobEffect(MobEffectCategory.HARMFUL, 16711680));
+    public static final RegistryObject<MobEffect> ACIDIC_VENOM = MOB_EFFECT_DEFERRED_REGISTER.register("acidic_venom", () -> new AcidicVenomEffect(MobEffectCategory.HARMFUL, 9916322));
+    public static final RegistryObject<MobEffect> BRIMSTONE_FLAME = MOB_EFFECT_DEFERRED_REGISTER.register("brimstone_flame", () -> new BrimstoneFlameMobEffect(MobEffectCategory.HARMFUL, 14896975));
+    public static final RegistryObject<MobEffect> HEMORRHAGE = MOB_EFFECT_DEFERRED_REGISTER.register("hemorrhage", () -> new HemorrhageMobEffect(MobEffectCategory.HARMFUL, 16711680));
+    public static final RegistryObject<MobEffect> STATIC = MOB_EFFECT_DEFERRED_REGISTER.register("static", () -> new StaticMobEffect(MobEffectCategory.HARMFUL, 15081480));
+
+    public static final RegistryObject<MobEffect> SPIRIT_FROSTBITE = MOB_EFFECT_DEFERRED_REGISTER.register("spirit_frostbite", () -> new SpiritFrostbiteMobEffect(MobEffectCategory.HARMFUL, 2818100)
+            .addAttributeModifier(Attributes.MOVEMENT_SPEED, MonstersSpellbooks.id("mobeffect_spirit_frostbite"), SpiritFrostbiteMobEffect.SLOWNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(AttributeRegistry.CAST_TIME_REDUCTION, MonstersSpellbooks.id("mobeffect_spirit_frostbite"), SpiritFrostbiteMobEffect.CAST_TIME_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, MonstersSpellbooks.id("mobeffect_spirit_frostbite"), SpiritFrostbiteMobEffect.ATTACK_SLOWNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(AttributeRegistry.MANA_REGEN, MonstersSpellbooks.id("mobeffect_spirit_frostbite"), SpiritFrostbiteMobEffect.MANA_SLOWNESS_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL).cast());
+
+    public static final RegistryObject<MobEffect> ENDERSENT_STRENGTH = MOB_EFFECT_DEFERRED_REGISTER.register("endersent_strength", () -> new EndersentStrengthMobEffect(MobEffectCategory.BENEFICIAL, 3311322)
+            .addAttributeModifier(Attributes.ATTACK_DAMAGE, MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.ATTACK_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_SPEED, MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.ATTACK_SPEED_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(Attributes.ATTACK_KNOCKBACK, MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.ATTACK_KNOCKBACK_PER_LEVEL, AttributeModifier.Operation.ADDITION)
+            .addAttributeModifier(Attributes.KNOCKBACK_RESISTANCE, MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.KNOCKBACK_RESISTANCE_PER_LEVEL, AttributeModifier.Operation.ADDITION)
+            .addAttributeModifier(ForgeMod.BLOCK_REACH.get(), MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.BLOCK_RANGE_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(ForgeMod.ENTITY_REACH.get(), MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.ENTITY_RANGE_PER_LEVEL, AttributeModifier.Operation.MULTIPLY_TOTAL)
+            .addAttributeModifier(ForgeMod.STEP_HEIGHT_ADDITION.get(), MonstersSpellbooks.id("mobeffect_endersent_strength"), EndersentStrengthMobEffect.STEP_PER_LEVEL, AttributeModifier.Operation.ADDITION).cast());
+
+    public static void register(IEventBus eventBus) {
+        MOB_EFFECT_DEFERRED_REGISTER.register(eventBus);
+    }
+}

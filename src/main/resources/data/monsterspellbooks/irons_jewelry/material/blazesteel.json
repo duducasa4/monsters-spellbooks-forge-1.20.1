@@ -1,0 +1,46 @@
+{
+  "bonusParameters": {
+    "irons_jewelry:action": {
+      "action": {
+        "type": "irons_jewelry:explode",
+        "affect_self": false,
+        "block_interaction": "none",
+        "damage_type": "irons_spellbooks:fire_magic",
+        "knockback_multiplier": {
+          "base": 0.5,
+          "scalar": 0.0
+        },
+        "large_particle": {
+          "type": "irons_spellbooks:fiery_smoke"
+        },
+        "radius": {
+          "base": 2.0,
+          "scalar": 1.0
+        },
+        "small_particle": {
+          "type": "irons_spellbooks:fire"
+        },
+        "sound": "minecraft:entity.generic.explode",
+        "translation": "action.monsterspellbooks.explode.redstone"
+      },
+      "targetSelf": false
+    },
+    "irons_jewelry:attribute": {
+      "amount": 0.1,
+      "attribute": "aces_spell_utils:magic_projectile_damage",
+      "operation": "add_multiplied_total"
+    },
+    "irons_jewelry:negative_effect": {
+      "effect": "monsterspellbooks:inflammable"
+    },
+    "irons_jewelry:positive_effect": {
+      "effect": "minecraft:strength"
+    }
+  },
+  "descriptionId": "material.monsterspellbooks.blazesteel",
+  "ingredient": {
+    "item": "monsterspellbooks:blazesteel_ingot"
+  },
+  "paletteLocation": "monsterspellbooks:palettes/blazesteel",
+  "quality": 2.5
+}

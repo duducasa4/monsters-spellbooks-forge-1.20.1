@@ -1,0 +1,53 @@
+modLoader="javafml"
+loaderVersion="[47,)"
+license="MIT"
+
+[[mods]]
+modId="monsterspellbooks"
+version="1.20.1-0.0.14"
+displayName="Monsters & Spellbooks"
+authors="RedReaper (RedTablos)"
+description='''Save or Doom a world forgotten long ago. An addon for Iron's Spells 'n Spellbooks with 90+ spells, 2 new spell schools and a ton of new gear and enemies. Forge 1.20.1 port of the MIT-licensed NeoForge 1.21.1 mod.'''
+
+[[dependencies.monsterspellbooks]]
+    modId="forge"
+    mandatory=true
+    versionRange="[47,)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.monsterspellbooks]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.20.1,1.21)"
+    ordering="NONE"
+    side="BOTH"
+[[dependencies.monsterspellbooks]]
+    modId="irons_spellbooks"
+    mandatory=true
+    versionRange="[1.20.1-3.16.3,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.monsterspellbooks]]
+    modId="aces_spell_utils"
+    mandatory=true
+    versionRange="[1.1.0,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.monsterspellbooks]]
+    modId="azurelib"
+    mandatory=true
+    versionRange="[3.2,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.monsterspellbooks]]
+    modId="geckolib"
+    mandatory=true
+    versionRange="[4.4,)"
+    ordering="AFTER"
+    side="BOTH"
+[[dependencies.monsterspellbooks]]
+    modId="curios"
+    mandatory=true
+    versionRange="[5.0,)"
+    ordering="AFTER"
+    side="BOTH"

@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "monsterspellbooks:polished_pearl_marble"
+  },
+  "result": "monsterspellbooks:polished_pearl_marble_stairs",
+  "count": 1
+}

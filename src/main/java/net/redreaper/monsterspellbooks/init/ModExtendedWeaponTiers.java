@@ -1,0 +1,223 @@
+package net.redreaper.monsterspellbooks.init;
+
+import io.redspace.ironslib.registry.IronsLibRegistries;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
+import io.redspace.ironsspellbooks.item.weapons.IronsWeaponTier;
+import io.redspace.ironsspellbooks.registries.ItemRegistry;
+import io.redspace.ironsspellbooks.util.ModTags;
+import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
+import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Block;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
+public class ModExtendedWeaponTiers implements Tier, IronsWeaponTier {
+
+    public static ModExtendedWeaponTiers FORBIDDEN_TOOL = new ModExtendedWeaponTiers(1551, 7F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.MITHRIL_INGOT.get()),
+            new AttributeContainer(ASAttributeRegistry.MAGIC_DAMAGE_CRIT_CHANCE, 1., AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MAGIC_DAMAGE_CRIT_DAMAGE, 1., AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(AttributeRegistry.LIGHTNING_SPELL_POWER, 0.1, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers MAGMATIC_OBSIDIAN = new ModExtendedWeaponTiers(751, 7F, -2.8F, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(Items.BLAZE_POWDER),
+            new AttributeContainer(AttributeRegistry.FIRE_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.ARMOR_PIERCE, 5, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers BLOOD_STAINED_GOLD = new ModExtendedWeaponTiers(1551, 14, -3, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.BLOOD_VIAL.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.20, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 2, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers VOID_OBSIDIAN = new ModExtendedWeaponTiers(1551, 11F, -2.8F, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.VOID_OBSIDIAN_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.ENDER_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers VILLAGE_BUTCHER = new ModExtendedWeaponTiers(1551, 7F, -3F, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.ILLAGERITE_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.EVOCATION_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers CULTIST_KNIFE = new ModExtendedWeaponTiers(751, 6F, -2.6F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(Items.IRON_INGOT),
+            new AttributeContainer(ASAttributeRegistry.RITUAL_MAGIC_POWER, 0.05, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers VOID_BLADE = new ModExtendedWeaponTiers(851, 3F, -2.6F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ModItems.VOID_OBSIDIAN_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.ENDER_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers HEAVY_VOID_OBSIDIAN = new ModExtendedWeaponTiers(1551, 11, -3.4f, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.VOID_OBSIDIAN_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.ENDER_SPELL_POWER, 0.20, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 2, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(() -> Attributes.KNOCKBACK_RESISTANCE, 0.25, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers HALLOWED_STEEL = new ModExtendedWeaponTiers(1551, 11F, -3.0F, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.DIVINE_PEARL.get()),
+            new AttributeContainer(AttributeRegistry.HOLY_SPELL_POWER, 0.20, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(AttributeRegistry.BLOOD_MAGIC_RESIST, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ModAtributeRegistry.NECRO_MAGIC_RESIST, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(() -> Attributes.ATTACK_SPEED, 0.20, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers HALLOWED_HEAVY_STEEL = new ModExtendedWeaponTiers(1551, 9F, -3.4F, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.DIVINE_PEARL.get()),
+            new AttributeContainer(AttributeRegistry.HOLY_SPELL_POWER, 0.20, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(() -> Attributes.ARMOR, 2, AttributeModifier.Operation.ADDITION),
+            new AttributeContainer(AttributeRegistry.BLOOD_MAGIC_RESIST, 0.25, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ModAtributeRegistry.NECRO_MAGIC_RESIST, 0.25, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers RITUAL_BONE = new ModExtendedWeaponTiers(1551, 5F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.BLOOD_VIAL.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.1, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(AttributeRegistry.SUMMON_DAMAGE, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers BLOOD_IRON = new ModExtendedWeaponTiers(1551, 9F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.BLOOD_VIAL.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.LIFE_RECOVERY, 0.10, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers FROST_TOUCHED_SUPERIOR_DEATHSILVER = new ModExtendedWeaponTiers(1551, 11F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DEATHSILVER_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.ICE_SPELL_POWER, 0.15, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ModAtributeRegistry.NECRO_MAGIC_POWER, 0.15, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MANA_STEAL, 0.10D, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers SPECTRITE = new ModExtendedWeaponTiers(1551, 9F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.SPECTRITE_INGOT.get()),
+            new AttributeContainer(ModAtributeRegistry.NECRO_MAGIC_POWER, 0.15, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MANA_REND, 0.10, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers SANGUINITE = new ModExtendedWeaponTiers(1551, 9F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.SANGUINITE_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.15, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.GOLIATH_SLAYER, 0.01, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers POISONED_SPEAR = new ModExtendedWeaponTiers(751, 6F, -2.6f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ModTags.NATURE_FOCUS),
+            new AttributeContainer(AttributeRegistry.NATURE_SPELL_POWER, 0.05, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers POISONED_SICKLE = new ModExtendedWeaponTiers(751, 4F, -2.5f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ModTags.NATURE_FOCUS),
+            new AttributeContainer(AttributeRegistry.NATURE_SPELL_POWER, 0.05, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers END_DAGGER = new ModExtendedWeaponTiers(1551, 5F, -2.5f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ModItems.VOID_OBSIDIAN_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.ENDER_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers FROST_FANG = new ModExtendedWeaponTiers(1551, 5F, -2.5f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ItemRegistry.ICE_VENOM_VIAL.get()),
+            new AttributeContainer(AttributeRegistry.ICE_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers MASTERS_KATANA = new ModExtendedWeaponTiers(1561, 3F, -2.0f, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ModItems.ROSE_GOLD_INGOT.get()),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.CRIT_DAMAGE, 0.25, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers GREAT_AXEBLADE = new ModExtendedWeaponTiers(1561, 11f, -3.3f, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(ModItems.ROSE_GOLD_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.EVOCATION_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers DANCERS_SWORD = new ModExtendedWeaponTiers(751, 5F, -1.5f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(Items.IRON_INGOT),
+            new AttributeContainer(() -> Attributes.MOVEMENT_SPEED, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers PRISMARINE_CLAYMORE = new ModExtendedWeaponTiers(751, 7F, -2.8F, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(Items.PRISMARINE_SHARD),
+            new AttributeContainer(net.minecraftforge.common.ForgeMod.SWIM_SPEED, 0.15, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers PRISMARINE_AXE = new ModExtendedWeaponTiers(751, 8F, -3F, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_diamond_tool")), () -> Ingredient.of(Items.PRISMARINE_SHARD),
+            new AttributeContainer(net.minecraftforge.common.ForgeMod.SWIM_SPEED, 0.10, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers NECROMANCER_PRISMARINE = new ModExtendedWeaponTiers(1551, 7F, -2.8F, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DEATHSILVER_INGOT.get()),
+            new AttributeContainer(ASAttributeRegistry.HYDRO_MAGIC_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ModAtributeRegistry.NECRO_MAGIC_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(net.minecraftforge.common.ForgeMod.SWIM_SPEED, .20, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers SNOW_BOW = new ModExtendedWeaponTiers(951, -1, -3, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.ICE_VENOM_VIAL.get()),
+            new AttributeContainer(AttributeRegistry.ICE_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MAGIC_PROJECTILE_CRIT_DAMAGE, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers RED_SNAKE = new ModExtendedWeaponTiers(951, -1, -3, 25, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ItemRegistry.ICE_VENOM_VIAL.get()),
+            new AttributeContainer(AttributeRegistry.FIRE_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MAGIC_PROJECTILE_DAMAGE, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers DEATHSILVER_DAGGER = new ModExtendedWeaponTiers(1551, 6F, -2.5f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DEATHSILVER_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.05, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MANA_REND, 0.15, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers DEATHSILVER_SWORD = new ModExtendedWeaponTiers(1551, 8F, -2.4f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DEATHSILVER_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MANA_REND, 0.10, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers DEATHSILVER_AXE = new ModExtendedWeaponTiers(1551, 9F, -3.2f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DEATHSILVER_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.05, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.MANA_REND, 0.15, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers DEATHSILVER_GREATAXE = new ModExtendedWeaponTiers(1551, 9F, -3.2f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DEATHSILVER_INGOT.get()),
+            new AttributeContainer(AttributeRegistry.SPELL_RESIST, 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
+
+    public static ModExtendedWeaponTiers SANGUINITE_DAGGER = new ModExtendedWeaponTiers(1551, 6F, -2, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.SANGUINITE_DAGGER.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.ARMOR_PIERCE, 3, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers SANGUINITE_SCYTHE = new ModExtendedWeaponTiers(1551, 9F, -2.5f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.SANGUINITE_DAGGER.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.HEALING_RECEIVED, 0.10, AttributeModifier.Operation.MULTIPLY_BASE));
+    public static ModExtendedWeaponTiers SANGUINITE_GREATAXE = new ModExtendedWeaponTiers(1551, 11F, -3.2f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.SANGUINITE_DAGGER.get()),
+            new AttributeContainer(AttributeRegistry.BLOOD_SPELL_POWER, 0.10, AttributeModifier.Operation.MULTIPLY_BASE),
+            new AttributeContainer(ASAttributeRegistry.LIFE_RECOVERY, 0.10, AttributeModifier.Operation.ADDITION));
+
+    public static ModExtendedWeaponTiers ORICHALCUM_DAGGER = new ModExtendedWeaponTiers(1551, 5F, -2.5f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.ORICHALCUM_INGOT.get()),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 0.1, AttributeModifier.Operation.ADDITION),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.ARMOR_PIERCE, 0.3, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers ORICHALCUM_GREATSWORD = new ModExtendedWeaponTiers(1551, 7F, -3, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.ORICHALCUM_INGOT.get()),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 0.2f, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers ORICHALCUM_GREATAXE = new ModExtendedWeaponTiers(1551, 11F, -3.2f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.ORICHALCUM_INGOT.get()),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 1, AttributeModifier.Operation.ADDITION),
+            new AttributeContainer(() -> Attributes.KNOCKBACK_RESISTANCE, 0.05, AttributeModifier.Operation.MULTIPLY_BASE));
+    public static ModExtendedWeaponTiers ORICHALCUM_WARHAMMER = new ModExtendedWeaponTiers(1551, 11F, -3.5f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.ORICHALCUM_INGOT.get()),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.ARMOR_PIERCE, 1.5f, AttributeModifier.Operation.ADDITION),
+            new AttributeContainer(() -> Attributes.KNOCKBACK_RESISTANCE, 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
+    public static ModExtendedWeaponTiers ORICHALCUM_AXE = new ModExtendedWeaponTiers(1551, 8F, -3, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.ORICHALCUM_INGOT.get()),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 0.1, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers DWARVEN_GREATAXE = new ModExtendedWeaponTiers(1551, 10F, -3f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DWARVEN_ALLOY_INGOT.get()),
+            new AttributeContainer(() -> Attributes.ATTACK_KNOCKBACK, 1, AttributeModifier.Operation.ADDITION));
+    public static ModExtendedWeaponTiers DWARVEN_WARHAMMER = new ModExtendedWeaponTiers(1551, 10F, -3.2f, 15, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DWARVEN_ALLOY_INGOT.get()),
+            new AttributeContainer(IronsLibRegistries.AttributeRegistry.ARMOR_PIERCE, 1.5f, AttributeModifier.Operation.ADDITION),
+            new AttributeContainer(() -> Attributes.KNOCKBACK_RESISTANCE, 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
+    public static ModExtendedWeaponTiers DWARVEN_AXE = new ModExtendedWeaponTiers(1551, 8F, -2.75f, 10, net.minecraft.tags.BlockTags.create(new net.minecraft.resources.ResourceLocation("incorrect_for_netherite_tool")), () -> Ingredient.of(ModItems.DWARVEN_ALLOY_INGOT.get()));
+
+    private final int uses;
+    private final float speed;
+    private final float damage;
+    private final int enchantmentValue;
+    private final TagKey<Block> incorrectBlocksForDrops;
+    private final Supplier<Ingredient> repairIngredient;
+    private final AttributeContainer[] attributeContainers;
+
+    private ModExtendedWeaponTiers(int uses, float damage, float speed, int enchantmentValue, TagKey<Block> incorrectBlocksForDrops, Supplier<Ingredient> repairIngredient, AttributeContainer... attributes) {
+        //this.level = level;
+        this.uses = uses;
+        this.speed = speed;
+        this.damage = damage;
+        this.enchantmentValue = enchantmentValue;
+        this.incorrectBlocksForDrops = incorrectBlocksForDrops;
+        this.repairIngredient = repairIngredient;
+        this.attributeContainers = attributes;
+    }
+
+    @Override
+    public AttributeContainer[] getAdditionalAttributes() {
+        return this.attributeContainers;
+    }
+
+    @Override
+    public int getUses() {
+        return uses;
+    }
+
+    @Override
+    public float getSpeed() {
+        return speed;
+    }
+
+    @Override
+    public float getAttackDamageBonus() {
+        return damage;
+    }
+
+    /** 1.20.1 mining level for the 1.21 "incorrect for" tag. */
+    @Override
+    public int getLevel() {
+        return net.redreaper.monsterspellbooks.compat120.WeaponAttrs.level(incorrectBlocksForDrops.location().getPath());
+    }
+
+    @Override
+    public int getEnchantmentValue() {
+        return enchantmentValue;
+    }
+
+    @Override
+    public @NotNull Ingredient getRepairIngredient() {
+        return this.repairIngredient.get();
+    }
+
+}

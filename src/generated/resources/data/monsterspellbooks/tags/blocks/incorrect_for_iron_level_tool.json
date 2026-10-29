@@ -1,0 +1,11 @@
+{
+  "remove": [
+    "#monsterspellbooks:needs_iron_level_tool"
+  ],
+  "values": [
+    {
+      "id": "#minecraft:incorrect_for_iron_tool",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/sanguinite_axe_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/sanguinite_axe_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/sanguinite_axe_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/sanguinite_axe_gui"
+		}
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/dwarven_warhammer_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/dwarven_warhammer_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/dwarven_warhammer_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/dwarven_warhammer_gui"
+		}
+	}
+}

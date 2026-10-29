@@ -1,0 +1,470 @@
+package net.redreaper.monsterspellbooks.events;
+
+import io.redspace.ironsspellbooks.api.config.ModifyDefaultConfigValuesEvent;
+import io.redspace.ironsspellbooks.api.config.SpellConfigParameter;
+import io.redspace.ironsspellbooks.api.entity.IMagicEntity;
+import io.redspace.ironsspellbooks.api.events.SpellPreCastEvent;
+import io.redspace.ironsspellbooks.api.registry.SchoolRegistry;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.capabilities.magic.MagicManager;
+import io.redspace.ironsspellbooks.damage.ISSDamageTypes;
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
+import io.redspace.ironsspellbooks.effect.ImmolateEffect;
+import io.redspace.ironsspellbooks.entity.mobs.IMagicSummon;
+import io.redspace.ironsspellbooks.entity.spells.poison_cloud.PoisonCloud;
+import io.redspace.ironsspellbooks.entity.spells.poison_cloud.PoisonSplash;
+import io.redspace.ironsspellbooks.particle.BlastwaveParticleOptions;
+import io.redspace.ironsspellbooks.registries.MobEffectRegistry;
+import io.redspace.ironsspellbooks.spells.blood.RaiseDeadSpell;
+import io.redspace.ironsspellbooks.spells.blood.WitherSkullSpell;
+import io.redspace.ironsspellbooks.spells.evocation.GustSpell;
+import io.redspace.ironsspellbooks.spells.evocation.SlowSpell;
+import net.acetheeldritchking.aces_spell_utils.utils.ASUtils;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextColor;
+import net.minecraft.network.protocol.game.ClientboundSetActionBarTextPacket;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.EntityTypeTags;
+import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.event.entity.EntityTeleportEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingHealEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
+import net.minecraftforge.event.level.BlockEvent;
+import net.redreaper.monsterspellbooks.effect.HemorrhageMobEffect;
+import net.redreaper.monsterspellbooks.effect.StaticMobEffect;
+import net.redreaper.monsterspellbooks.effect.VoidTouchedEffect;
+import net.redreaper.monsterspellbooks.entity.living.summons.RancorPhantomEntity;
+import net.redreaper.monsterspellbooks.init.*;
+import net.redreaper.monsterspellbooks.item.curios.elemental_charm.DwarvenPowerCoreItem;
+import net.redreaper.monsterspellbooks.item.curios.spellbooks.DiseaseEncyclopediaItem;
+import net.redreaper.monsterspellbooks.item.curios.spellbooks.FrenzyKingBookItem;
+import net.redreaper.monsterspellbooks.item.curios.spellbooks.reaper_lantern.ReaperLanternSpellBook;
+import net.redreaper.monsterspellbooks.item.weapons.*;
+import net.redreaper.monsterspellbooks.item.weapons.magmatic_macuahuitl.MagmaticMacuahuitlItem;
+
+import java.util.Objects;
+
+@Mod.EventBusSubscriber
+public class ServerEvents {
+    @SubscribeEvent
+    public static void onLivingHealEvent(LivingHealEvent event) {
+        MobEffectInstance antihealEffect = event.getEntity().getEffect(ModMobEffects.HEAL_CUT.get());
+        MobEffectInstance antiheal2Effect = event.getEntity().getEffect(ModMobEffects.ACIDIC_VENOM.get());
+        MobEffectInstance disabledEffect = event.getEntity().getEffect(MobEffectRegistry.HEARTSTOP.get());
+
+        if (antihealEffect != null) {event.setCanceled(true);}
+        if (antiheal2Effect!= null) {event.setCanceled(true);}
+        if (disabledEffect != null) {event.setCanceled(true);}
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void onSpellTeleport(EntityTeleportEvent event) {
+        if (event.getEntity() instanceof LivingEntity livingEntity) {
+            if (livingEntity.hasEffect(ModMobEffects.SPACE_ANCHORED.get())) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerCastEvent(SpellPreCastEvent event) {
+        var entity = event.getEntity();
+        var spell = SpellRegistry.getSpell(event.getSpellId());
+
+        boolean isCursed = entity.hasEffect(ModMobEffects.CURSE.get());
+        if (entity instanceof ServerPlayer player && !player.level().isClientSide()) {
+            if (isCursed) {
+                event.setCanceled(true);
+                int time = Objects.requireNonNull(player.getEffect(ModMobEffects.CURSE.get())).getDuration();
+                String formattedTime = ASUtils.convertTicksToTime(time);
+
+                if (((Object) player) instanceof ServerPlayer serverPlayer) {
+                    serverPlayer.connection.send(new ClientboundSetActionBarTextPacket(Component.translatable("display.monsterspellbooks.curse_warning").append(formattedTime)
+                            .withStyle(s -> s.withColor(TextColor.fromRgb(0xF35F5F)))));
+                    serverPlayer.level().playSound(null, player.getX(), player.getY(), player.getZ(),
+                            SoundEvents.WITHER_HURT, SoundSource.PLAYERS, 0.5f, 1f);
+                }
+            }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void onLivingDamage(LivingDamageEvent event) {
+        LivingEntity entityTarget = event.getEntity();
+        Entity entityAttacker = event.getSource().getDirectEntity();
+
+        if (entityAttacker instanceof LivingEntity livingAttacker) {
+            if (livingAttacker.hasEffect(ModMobEffects.OVERHEAT.get())) {
+                entityTarget.setRemainingFireTicks(50);
+            }
+        }
+
+        if (entityAttacker instanceof LivingEntity livingAttacker) {
+            if (entityTarget.hasEffect(ModMobEffects.OVERHEAT.get())) {
+                livingAttacker.setRemainingFireTicks(50);
+            }
+        }
+
+        if (entityAttacker instanceof LivingEntity livingAttacker) {
+            if (entityTarget.hasEffect(ModMobEffects.FROST_COATING.get())) {
+                livingAttacker.setTicksFrozen(360);
+            }
+        }
+
+        if (entityAttacker instanceof LivingEntity livingAttacker) {
+            if (livingAttacker.hasEffect(ModMobEffects.DECAYING_TOUCH.get())) {
+                entityTarget.addEffect(new MobEffectInstance(MobEffects.WITHER, 120, 1, true, true, true));
+            }
+        }
+
+        if (entityAttacker instanceof IMagicSummon summon && summon.getSummoner() instanceof Player summoner) {
+            if (ASUtils.hasCurio(summoner, ModItems.COLD_CONJURER_TALISMAN.get())) {
+                Utils.addFreezeTicks(entityTarget, 120);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingIncomingDamage(LivingHurtEvent event) {
+        var livingEntity = event.getEntity();
+        var target = event.getEntity();
+
+        if ((livingEntity instanceof ServerPlayer) || (livingEntity instanceof IMagicEntity)) {
+            if (livingEntity.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.FLESH_MAIDEN.get()) && event.getSource().is(ISSDamageTypes.HEARTSTOP)) {
+                event.setCanceled(true);
+                return;
+            }
+
+            if (livingEntity.hasEffect(ModMobEffects.SOUL_FORM.get()) && !event.getSource().is(ISSDamageTypes.HOLY_MAGIC)) {
+                event.setCanceled(true);
+                return;
+            }
+        }
+
+        if (event.getSource().getEntity() instanceof LivingEntity livingAttacker )
+        {
+            if (!(target.getMobType() == net.minecraft.world.entity.MobType.UNDEAD)) {
+                if (livingAttacker.getItemBySlot(EquipmentSlot.MAINHAND).is(ModTags.Items.DEATHSILVER_WEAPONS)) {
+                    if (event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+
+                        float baseDamage = event.getAmount();
+                        float newDamage = baseDamage * 1.50f;
+                        event.setAmount(newDamage);
+                    }
+                }
+            }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void livingDamageEventPost(LivingDamageEvent event) {
+        var sourceEntity = event.getSource().getEntity();
+        var target = event.getEntity();
+        var projectile = event.getSource().getDirectEntity();
+
+        // Curios
+        if (sourceEntity != null) {
+
+            if (sourceEntity instanceof Player player) {
+                // Brimstone Sigil
+                if (ASUtils.hasCurio(player, ModItems.BRIMSTONE_SIGIL.get())) {
+                    if (event.getSource().is(ISSDamageTypes.FIRE_MAGIC))
+                        target.addEffect(new MobEffectInstance(ModMobEffects.BRIMSTONE_FLAME.get(), 60, 0, true, true, true));
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.POISON_GLAIVE.get())) {
+                    if (event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+                        target.addEffect(new MobEffectInstance(MobEffects.POISON, 3*20, 1, true, true, true));
+                    }
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.FROST_FANG.get())) {
+                    if (event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+                        Utils.addFreezeTicks(target, 60);
+                    }
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.SANGUINITE_DAGGER.get())) {
+                    if (event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+                        HemorrhageMobEffect.addHemorrhageStack(target, player);
+                    }
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.SANGUINITE_SCYTHE.get())) {
+                    if (event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+                        HemorrhageMobEffect.addHemorrhageStack2(target, player);
+                    }
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.SANGUINITE_AXE.get())) {
+                    if (event.getSource().is(DamageTypes.PLAYER_ATTACK)) {
+                        HemorrhageMobEffect.addHemorrhageStack3(target, player);
+                    }
+                }
+
+                // Frostmourne
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.FROSTMOURNE.get())) {
+                    if (event.getSource().is(ISSDamageTypes.ICE_MAGIC))
+                        target.addEffect(new MobEffectInstance(MobEffects.WITHER, 120, 1, true, true, true));
+                }
+
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.FROSTMOURNE.get())) {
+                    if (event.getSource().is(ModDamageTypes.NECRO_MAGIC))
+                        Utils.addFreezeTicks(target, 240);
+                }
+
+                // SnowBow
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.SNOW_BOW.get())) {
+                    if (event.getSource().is(DamageTypes.ARROW))
+                        Utils.addFreezeTicks(target, 120);
+                }
+
+                // RedSnake
+                if (player.getItemBySlot(EquipmentSlot.MAINHAND).is(ModItems.RED_SNAKE_BOW.get())) {
+                    int randomNum = (int) (Math.random() * 5); // 0 to 10
+                    if (event.getSource().is(DamageTypes.ARROW))
+                        if (randomNum ==1 ) {
+                            ImmolateEffect.addImmolateStack(target, sourceEntity);
+                        }
+                }
+            }
+        }
+        if (sourceEntity instanceof LivingEntity livingEntity)
+        {
+            ItemStack mainhandItem = livingEntity.getMainHandItem();
+            ItemStack offhandItem = livingEntity.getOffhandItem();
+            if (mainhandItem.getItem() instanceof EternalKnifeItem && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(ModItems.ETERNAL_KNIFE.get())))
+            {
+                // Etneral Knife - Entities with over 25% of their health are inflicted with Mana Rend
+                {
+                    MagicManager.spawnParticles(target.level(), new BlastwaveParticleOptions(ModSpellSchools.NECRO.get().getTargetingColor(), 1.5f), target.getX(), target.getY() + 0.165F, target.getZ(), 1, 0, 0, 0, 0, true);
+                    if (((Object) target) instanceof LivingEntity livingTarget)
+                    {
+                        livingTarget.addEffect(new MobEffectInstance(ModMobEffects.SOUL_REND.get(), 8*20, 1, true, true, true));
+                    }
+
+                    if (livingEntity instanceof Player player)
+                    {
+                        player.getCooldowns().addCooldown(ModItems.ETERNAL_KNIFE.get(), EternalKnifeItem.COOLDOWN);
+                    }
+                }
+            }
+
+            if (mainhandItem.getItem() instanceof VoidTouchedBladeItem && (!(livingEntity instanceof Player player) || !player.getCooldowns().isOnCooldown(ModItems.VOID_TOUCHED_BLADE.get())))
+            {
+                // Void Touched Blade - Hit enemies get a stack of Void Touched
+                {
+                    MagicManager.spawnParticles(target.level(), new BlastwaveParticleOptions(SchoolRegistry.ENDER.get().getTargetingColor(), 1.5f), target.getX(), target.getY() + 0.165F, target.getZ(), 1, 0, 0, 0, 0, true);
+                    if (((Object) target) instanceof LivingEntity livingTarget)
+                    {
+                        VoidTouchedEffect.addVoidStack(livingTarget, livingEntity);
+                    }
+
+                    if (livingEntity instanceof Player player)
+                    {
+                        player.getCooldowns().addCooldown(ModItems.VOID_TOUCHED_BLADE.get(), VoidTouchedBladeItem.COOLDOWN);
+                    }
+                }
+            }
+
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerAttack(AttackEntityEvent event) {
+        if (event.getEntity().hasEffect(ModMobEffects.STUNNED.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBreakBlock(BlockEvent.BreakEvent event) {
+        if (event.getPlayer().hasEffect(ModMobEffects.STUNNED.get())) {
+            event.setCanceled(true);
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void onLivingDeathEvent(LivingDeathEvent event)
+    {
+        LivingEntity target = event.getEntity();
+        Entity attacker = event.getSource().getEntity();
+
+        if (attacker instanceof LivingEntity livingAttacker)
+        {
+            ItemStack mainhandItem = livingAttacker.getMainHandItem();
+
+            // Poison Biter
+            if (mainhandItem.getItem() instanceof PoisonBiterItem && (!(attacker instanceof Player player) || !player.getCooldowns().isOnCooldown(ModItems.POISON_BITER.get())))
+            {
+                if (((Object) target) instanceof LivingEntity livingTarget)
+                {
+                    PoisonCloud cloud = new PoisonCloud(attacker.level());
+                    cloud.setOwner(attacker);
+                    cloud.setDuration(200);
+                    cloud.setDamage(2);
+                    cloud.moveTo(livingTarget.position());
+                    attacker.level().addFreshEntity(cloud);
+                }
+
+                if (attacker instanceof Player player)
+                {
+                    player.getCooldowns().addCooldown(ModItems.POISON_BITER.get(), PoisonBiterItem.COOLDOWN);
+                }
+            }
+
+            // Reaper Sickle
+            if (mainhandItem.getItem() instanceof ReaperSickle && (!(attacker instanceof Player player) || !player.getCooldowns().isOnCooldown(ModItems.REAPER_SICKLE.get())))
+            {
+                if (((Object) target) instanceof LivingEntity livingTarget)
+                {
+                    livingAttacker.addEffect(new MobEffectInstance(MobEffectRegistry.INSTANT_MANA.get(), 0, 2, false, false, true));
+                }
+                if (attacker instanceof Player player)
+                {
+                    player.getCooldowns().addCooldown(ModItems.REAPER_SICKLE.get(), ReaperSickle.COOLDOWN);
+                }
+            }
+
+            //Heartstealer
+            if (mainhandItem.getItem() instanceof DukesHeartstealer && (!(attacker instanceof Player player) || !player.getCooldowns().isOnCooldown(ModItems.DUKES_HEARTSTEALER.get())))
+            {
+                if (((Object) target) instanceof LivingEntity livingTarget)
+                {
+                    livingAttacker.addEffect(new MobEffectInstance(MobEffectRegistry.VIGOR.get(), 30*20, 2, false, false, true));
+                }
+                if (attacker instanceof Player player)
+                {
+                    player.getCooldowns().addCooldown(ModItems.DUKES_HEARTSTEALER.get(), DukesHeartstealer.COOLDOWN);
+                }
+            }
+
+            //DancerSword
+            if (mainhandItem.getItem() instanceof DancerSwordItem && (!(attacker instanceof Player player) || !player.getCooldowns().isOnCooldown(ModItems.DANCERS_SWORD.get())))
+            {
+                if (((Object) target) instanceof LivingEntity livingTarget)
+                {
+                    livingAttacker.addEffect(new MobEffectInstance(ModMobEffects.RAMPAGING.get(), 15*20, 2, false, false, true));
+                }
+                if (attacker instanceof Player player)
+                {
+                    player.getCooldowns().addCooldown(ModItems.DANCERS_SWORD.get(), DancerSwordItem.COOLDOWN);
+                }
+            }
+
+        }
+    }
+
+    @SubscribeEvent
+    public static void onBeforeDamageTaken(LivingDamageEvent event) {
+        var livingEntity = event.getEntity();
+        var entity = event.getEntity();
+        var source = event.getSource();
+        var attacker = event.getSource().getEntity();
+
+        if (attacker instanceof Player player) {
+            // Frenzy King Book
+            if (event.getSource().is(ISSDamageTypes.ELDRITCH_MAGIC) && (!player.getCooldowns().isOnCooldown(ModItems.FRENZY_KING_BOOK.get()))) {
+                if (ASUtils.hasCurio(player, ModItems.FRENZY_KING_BOOK.get())) {
+                    entity.setRemainingFireTicks(60);
+                    player.getCooldowns().addCooldown(ModItems.FRENZY_KING_BOOK.get(), FrenzyKingBookItem.COOLDOWN);
+                }
+            }
+
+            // Disease Encyclopedia
+            if (ASUtils.hasCurio(player, ModItems.DISEASE_ENCYCLOPEDIA.get()) && (!player.getCooldowns().isOnCooldown(ModItems.DISEASE_ENCYCLOPEDIA.get()))) {
+                int randomNum = (int) (Math.random() * 11); // 0 to 10
+                if (randomNum ==1 ) {entity.addEffect(new MobEffectInstance(ModMobEffects.MADNESS.get(), 200, 1, true, true, true));}
+                if (randomNum == 2) {entity.addEffect(new MobEffectInstance(MobEffectRegistry.BLIGHT.get(), 200, 2, true, true, true));}
+                if (randomNum == 3) {entity.addEffect(new MobEffectInstance(MobEffectRegistry.SLOWED.get(), 200, 1, true, true, true));}
+                if (randomNum == 4) {entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 200, 0, true, true, true));}
+                if (randomNum == 5) {entity.addEffect(new MobEffectInstance(ModMobEffects.STUNNED.get(), 100, 1, true, true, true));}
+                if (randomNum == 6) {entity.addEffect(new MobEffectInstance(MobEffects.POISON, 200, 1, true, true, true));}
+                if (randomNum == 7) {entity.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 150, 0, true, true, true));}
+                if (randomNum == 8) {entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 150, 1, true, true, true));}
+                if (randomNum == 9) {entity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 300, 3, true, true, true));}
+                if (randomNum == 10) {entity.addEffect(new MobEffectInstance(MobEffects.HARM, 10, 1, true, true, true));}
+                player.getCooldowns().addCooldown(ModItems.DISEASE_ENCYCLOPEDIA.get(), DiseaseEncyclopediaItem.COOLDOWN);
+            }
+
+            if (ASUtils.hasCurio(player, ModItems.REAPER_LANTERN.get()) && (!player.getCooldowns().isOnCooldown(ModItems.REAPER_LANTERN.get()))) {
+                if (event.getSource() instanceof SpellDamageSource) {
+                    float baseDamage = event.getAmount()/2;
+                        Level world = attacker.level();
+                        RancorPhantomEntity wispEntity = new RancorPhantomEntity(world, (LivingEntity) event.getSource().getEntity(), (float) baseDamage);
+                        wispEntity.setTarget(event.getEntity());
+                        wispEntity.setPos(Utils.getPositionFromEntityLookDirection(event.getSource().getEntity(), 2).subtract(0, .2, 0));
+                        world.addFreshEntity(wispEntity);
+                        player.getCooldowns().addCooldown(ModItems.REAPER_LANTERN.get(), ReaperLanternSpellBook.COOLDOWN);
+                }
+            }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void revive(LivingDeathEvent event) {
+        if (((Object) event.getEntity()) instanceof LivingEntity livingEntity) {
+            if (livingEntity.hasEffect(ModMobEffects.LICHDOM.get())) {
+                event.setCanceled(true);
+                livingEntity.removeEffect(ModMobEffects.LICHDOM.get());
+                livingEntity.addEffect(new MobEffectInstance(ModMobEffects.SOUL_FORM.get(), 150 ,4));
+                livingEntity.addEffect(new MobEffectInstance(ModMobEffects.CURSE.get(), 150 ,0));
+                livingEntity.setHealth(10.0F);
+                livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.WITHER_DEATH, SoundSource.NEUTRAL, .8F, 1.3F);
+            }
+
+            if (livingEntity.hasEffect(ModMobEffects.EFFECT_OF_UNDYING.get())) {
+                event.setCanceled(true);
+                livingEntity.removeEffect(ModMobEffects.EFFECT_OF_UNDYING.get());
+                livingEntity.removeAllEffects();
+                livingEntity.setHealth(01.0F);
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 900 ,1));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.FIRE_RESISTANCE, 800 ,0));
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100 ,1));
+                livingEntity.level().playSound(null, livingEntity.getX(), livingEntity.getY(), livingEntity.getZ(), SoundEvents.TOTEM_USE, SoundSource.NEUTRAL, .8F, 1.3F);
+            }
+        }
+    }
+
+
+    @SubscribeEvent
+    public static void modifySpellSchool(ModifyDefaultConfigValuesEvent event) {
+        if(event.getSpell() instanceof SlowSpell) {
+            event.setDefaultValue(SpellConfigParameter.SCHOOL, ModSpellSchools.NECRO.get());
+        }
+
+        if(event.getSpell() instanceof WitherSkullSpell) {
+            event.setDefaultValue(SpellConfigParameter.SCHOOL, ModSpellSchools.NECRO.get());
+        }
+
+        if(event.getSpell() instanceof RaiseDeadSpell) {
+            event.setDefaultValue(SpellConfigParameter.SCHOOL, ModSpellSchools.NECRO.get());
+        }
+    }
+
+}
+
+
+
+

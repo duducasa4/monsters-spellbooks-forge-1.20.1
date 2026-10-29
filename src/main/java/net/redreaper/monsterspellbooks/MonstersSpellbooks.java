@@ -1,0 +1,141 @@
+package net.redreaper.monsterspellbooks;
+
+import io.redspace.ironsspellbooks.render.SpellBookCurioRenderer;
+import mod.azure.azurelib.animation.cache.AzIdentityRegistry;
+import mod.azure.azurelib.render.armor.AzArmorRendererRegistry;
+import mod.azure.azurelib.render.item.AzItemRendererRegistry;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.redreaper.monsterspellbooks.entity.curios.critical_glasses.CriticalGlassesCurioRenderer;
+import net.redreaper.monsterspellbooks.entity.curios.ignition_gloves.IgnitionGlovesCurioRenderer;
+import net.redreaper.monsterspellbooks.entity.curios.obsidian_medal.ObsidianMedalCurioRenderer;
+import net.redreaper.monsterspellbooks.entity.curios.orb_soul.OrbSoulCurioItemRenderer;
+import net.redreaper.monsterspellbooks.entity.curios.orb_soul.OrbSoulCurioRenderer;
+import net.redreaper.monsterspellbooks.entity.curios.reaper_lantern.ReaperLanternCurioRenderer;
+import net.redreaper.monsterspellbooks.entity.curios.thundering_quiver.ThunderingQuiverCurioRenderer;
+import net.redreaper.monsterspellbooks.init.*;
+import net.redreaper.monsterspellbooks.item.shields.dwarven_riot_shield.DwarvenRiotShieldRenderer;
+import net.redreaper.monsterspellbooks.item.shields.mithril_shield.MithrilShieldRenderer;
+import net.redreaper.monsterspellbooks.item.staves.brimstone_orochi.BrimstoneOrochiRenderer;
+import net.redreaper.monsterspellbooks.item.staves.frozen_commander.FrozenCommanderStaffRenderer;
+import net.redreaper.monsterspellbooks.item.staves.vilenova_staff.VileNovaStaffRenderer;
+import net.redreaper.monsterspellbooks.item.weapons.disruption_nanginata.DisruptionNaginataRenderer;
+import net.redreaper.monsterspellbooks.item.weapons.gore_child.GoreChildRenderer;
+import net.redreaper.monsterspellbooks.item.weapons.magmatic_macuahuitl.MagmaticMacuahuitlRenderer;
+import net.redreaper.monsterspellbooks.item.weapons.necromancer_trident.NecromancerTridentRenderer;
+import net.redreaper.monsterspellbooks.item.weapons.paadin_hammer.PaladinHammerRenderer;
+import net.redreaper.monsterspellbooks.loot.ModLootModifiers;
+import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import com.mojang.logging.LogUtils;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import top.theillusivec4.curios.api.client.CuriosRendererRegistry;
+
+@Mod(MonstersSpellbooks.MOD_ID)
+public class MonstersSpellbooks {
+    public static final String MOD_ID = "monsterspellbooks";
+    public static final Logger LOGGER = LogUtils.getLogger();
+
+    public MonstersSpellbooks() {
+        IEventBus modEventBus = net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext.get().getModEventBus();
+        MinecraftForge.EVENT_BUS.register(this);
+
+        ModCreativeTabs.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModBlocks.register(modEventBus);
+        ModSounds.register(modEventBus);
+        ModMobEffects.register(modEventBus);
+        ModAtributeRegistry.register(modEventBus);
+        ModParticleTypes.register(modEventBus);
+        ModEntities.register(modEventBus);
+        ModSpellRegistry.register(modEventBus);
+        ModSpellSchools.register(modEventBus);
+        ModFluids.register(modEventBus);
+        ModLootModifiers.register(modEventBus);
+
+        modEventBus.addListener(this::commonSetup);
+
+        net.minecraftforge.fml.ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+    }
+
+
+
+    private void commonSetup(FMLCommonSetupEvent event) {
+        event.enqueueWork(net.redreaper.monsterspellbooks.network.ModNetwork::register);
+        // Animation Registry
+        AzIdentityRegistry.register(
+                ModItems.VILENOVA_STAFF.get(),
+                ModItems.BRIMSTONE_OROCHI.get(),
+
+                ModItems.DWARVEN_SHIELD.get(),
+
+                ModItems.ORB_SOUL.get()
+        );
+    }
+
+    @SubscribeEvent
+    public void onServerStarting(ServerStartingEvent event) {
+
+    }
+
+    @Mod.EventBusSubscriber(modid = MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+    public static class ClientModEvents {
+        @SubscribeEvent
+        public static void onClientSetup(FMLClientSetupEvent event) {
+
+            ModItemProperties.addCustomItemProperties();
+            // Curio Rendering
+            event.enqueueWork(() -> {
+                CuriosRendererRegistry.register(ModItems.GUARDIAN_SPELLBOOK.get(), SpellBookCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.ENCHANTING_TOME.get(), SpellBookCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.BOOK_OF_SOULS.get(), SpellBookCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.FRENZY_KING_BOOK.get(), SpellBookCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.DISEASE_ENCYCLOPEDIA.get(), SpellBookCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.REAPER_LANTERN.get(), ReaperLanternCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.CRITICAL_GLASSES.get(), CriticalGlassesCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.IGNITION_GLOVE.get(), IgnitionGlovesCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.THUNDERING_QUIVER.get(), ThunderingQuiverCurioRenderer::new);
+                CuriosRendererRegistry.register(ModItems.OBSIDIAN_MEDAL.get(), ObsidianMedalCurioRenderer::new);
+            });
+
+            AzArmorRendererRegistry.register(OrbSoulCurioItemRenderer::new, ModItems.ORB_SOUL.get());
+            CuriosRendererRegistry.register(
+                        ModItems.ORB_SOUL.get(), OrbSoulCurioRenderer::new
+            );
+
+            AzItemRendererRegistry.register(FrozenCommanderStaffRenderer::new, ModItems.FROZEN_COMMANDER_STAFF.get());
+            AzItemRendererRegistry.register(VileNovaStaffRenderer::new, ModItems.VILENOVA_STAFF.get());
+            AzItemRendererRegistry.register(BrimstoneOrochiRenderer::new, ModItems.BRIMSTONE_OROCHI.get());
+            AzItemRendererRegistry.register(PaladinHammerRenderer::new, ModItems.PALLADIN_HAMMER.get());
+            AzItemRendererRegistry.register(NecromancerTridentRenderer::new, ModItems.NECROMANCER_TRIDENT.get());
+            AzItemRendererRegistry.register(MagmaticMacuahuitlRenderer::new, ModItems.MAGMATIC_MACUAHUITL.get());
+            AzItemRendererRegistry.register(GoreChildRenderer::new, ModItems.GORE_CHILD.get());
+            AzItemRendererRegistry.register(DisruptionNaginataRenderer::new, ModItems.DISRUPTION_NAGINATA.get());
+            AzItemRendererRegistry.register(MithrilShieldRenderer::new, ModItems.MITHRIL_SHIELD.get());
+            AzItemRendererRegistry.register(DwarvenRiotShieldRenderer::new, ModItems.DWARVEN_SHIELD.get());
+
+            // Animation Registry
+            AzIdentityRegistry.register(
+                    ModItems.VILENOVA_STAFF.get(),
+                    ModItems.BRIMSTONE_OROCHI.get(),
+
+                    ModItems.DWARVEN_SHIELD.get(),
+
+                    ModItems.ORB_SOUL.get()
+            );
+        }
+    }
+
+    public static ResourceLocation id(@NotNull String path)
+    {
+        return new ResourceLocation(MonstersSpellbooks.MOD_ID, path);
+    }
+}

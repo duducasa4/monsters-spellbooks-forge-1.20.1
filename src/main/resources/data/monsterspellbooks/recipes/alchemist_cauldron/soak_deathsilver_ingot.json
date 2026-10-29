@@ -1,0 +1,14 @@
+{
+  "type": "irons_spellbooks:alchemist_cauldron_brew",
+  "base_fluid": {
+    "Amount": 500,
+    "FluidName": "monsterspellbooks:putrescence"
+  },
+  "byproduct": {
+    "item": "monsterspellbooks:deathsilver_ingot"
+  },
+  "input": {
+    "tag": "forge:ingots/silver"
+  },
+  "results": []
+}

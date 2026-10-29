@@ -1,0 +1,60 @@
+package net.redreaper.monsterspellbooks.entity.spells.ancient_flash;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Axis;
+import net.minecraft.client.renderer.LightTexture;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.resources.ResourceLocation;
+import net.redreaper.monsterspellbooks.MonstersSpellbooks;
+import org.joml.Matrix3f;
+import org.joml.Matrix4f;
+
+import java.util.Random;
+
+public class AncientFlashRenderer extends EntityRenderer<AncientFlash> {
+    private static final ResourceLocation TEXTURE = MonstersSpellbooks.id("textures/entity/primordial_flash/primordial_flash.png");
+
+    public AncientFlashRenderer(EntityRendererProvider.Context context) {
+        super(context);
+    }
+
+    @Override
+    public void render(AncientFlash esotericEdge, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight) {
+        poseStack.pushPose();
+
+        PoseStack.Pose pose = poseStack.last();
+        poseStack.mulPose(Axis.YP.rotationDegrees(90 - esotericEdge.getYRot()));
+        poseStack.mulPose(Axis.ZP.rotationDegrees(esotericEdge.getXRot()));
+        float randomZ = new Random(31L * esotericEdge.getId()).nextInt(-5, 5);
+        poseStack.mulPose(Axis.XP.rotationDegrees(randomZ));
+
+        drawSlash(pose, esotericEdge, bufferSource, esotericEdge.getBbWidth() * 1.5F, esotericEdge.isMirrored());
+
+        poseStack.popPose();
+
+        super.render(esotericEdge, entityYaw, partialTick, poseStack, bufferSource, packedLight);
+    }
+
+    private void drawSlash(PoseStack.Pose pose, AncientFlash entity, MultiBufferSource bufferSource, float width, boolean mirrored)
+    {
+        Matrix4f poseMatrix = pose.pose();
+        Matrix3f normalMatrix = pose.normal();
+
+        VertexConsumer consumer = bufferSource.getBuffer(RenderType.entityCutoutNoCull(getTextureLocation(entity)));
+        float halfWidth = width * 0.5F;
+        float height = entity.getBbHeight() * 0.5F;
+
+        consumer.vertex(poseMatrix, -halfWidth, height, -halfWidth).color(255, 255, 255, 255).uv(0f, mirrored ? 0f : 1f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0f, 1f, 0f).endVertex();
+        consumer.vertex(poseMatrix, halfWidth, height, -halfWidth).color(255, 255, 255, 255).uv(1f, mirrored ? 0f : 1f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0f, 1f, 0f).endVertex();
+        consumer.vertex(poseMatrix, halfWidth, height, halfWidth).color(255, 255, 255, 255).uv(1f, mirrored ? 1f : 0f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0f, 1f, 0f).endVertex();
+        consumer.vertex(poseMatrix, -halfWidth, height, halfWidth).color(255, 255, 255, 255).uv(0f, mirrored ? 1f : 0f).overlayCoords(OverlayTexture.NO_OVERLAY).uv2(LightTexture.FULL_BRIGHT).normal(0f, 1f, 0f).endVertex();
+    }
+
+    @Override
+    public ResourceLocation getTextureLocation(AncientFlash esotericStrike) {return TEXTURE;}
+}

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "monsterspellbooks:dwarven_alloy_ingot"
+    },
+    "B": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "AB ",
+    "B  "
+  ],
+  "result": {
+    "count": 1,
+    "item": "monsterspellbooks:dwarven_greataxe"
+  }
+}

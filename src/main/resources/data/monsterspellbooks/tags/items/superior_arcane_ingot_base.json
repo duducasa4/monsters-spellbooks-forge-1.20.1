@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "monsterspellbooks:orichalcum_ingot",
+    "monsterspellbooks:illagerite_ingot",
+    "#forge:ingots/rose_gold"
+  ]
+}

@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/sword_of_courage_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/sword_of_courage_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/sword_of_courage_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/sword_of_courage_gui"
+		}
+	}
+}

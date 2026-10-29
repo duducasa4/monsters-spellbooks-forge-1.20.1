@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "monsterspellbooks:wisewood_bone"
+    },
+    "B": {
+      "item": "monsterspellbooks:putrescence_vial"
+    },
+    "C": {
+      "item": "irons_spellbooks:ruined_book"
+    },
+    "D": {
+      "item": "irons_spellbooks:mithril_scrap"
+    }
+  },
+  "pattern": [
+    "AAA",
+    "DCD",
+    "BBB"
+  ],
+  "result": {
+    "count": 1,
+    "item": "monsterspellbooks:disease_encyclopedia"
+  }
+}

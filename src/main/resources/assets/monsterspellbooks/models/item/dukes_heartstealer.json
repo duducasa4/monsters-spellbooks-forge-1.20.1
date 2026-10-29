@@ -1,0 +1,18 @@
+{
+	"parent": "minecraft:item/handheld",
+	"loader": "forge:separate_transforms",
+	"base": {
+		"parent": "monsterspellbooks:item/dukes_heartstealer_hand"
+	},
+	"perspectives": {
+		"gui": {
+			"parent": "monsterspellbooks:item/dukes_heartstealer_gui"
+		},
+		"ground": {
+			"parent": "monsterspellbooks:item/dukes_heartstealer_gui"
+		},
+		"fixed": {
+			"parent": "monsterspellbooks:item/dukes_heartstealer_gui"
+		}
+	}
+}

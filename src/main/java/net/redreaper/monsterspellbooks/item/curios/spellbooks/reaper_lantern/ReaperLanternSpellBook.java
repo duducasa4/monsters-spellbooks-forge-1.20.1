@@ -1,0 +1,98 @@
+package net.redreaper.monsterspellbooks.item.curios.spellbooks.reaper_lantern;
+
+import io.redspace.ironsspellbooks.api.item.curios.AffinityData;
+import io.redspace.ironsspellbooks.api.registry.AttributeRegistry;
+import io.redspace.ironsspellbooks.api.util.Utils;
+import io.redspace.ironsspellbooks.damage.SpellDamageSource;
+import io.redspace.ironsspellbooks.entity.spells.wisp.WispEntity;
+import io.redspace.ironsspellbooks.item.weapons.AttributeContainer;
+import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
+import io.redspace.ironsspellbooks.util.TooltipsUtils;
+import net.acetheeldritchking.aces_spell_utils.items.curios.PassiveAbilitySpellbook;
+import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
+import net.redreaper.monsterspellbooks.init.ModAtributeRegistry;
+import net.redreaper.monsterspellbooks.init.ModSpellRegistry;
+import net.redreaper.monsterspellbooks.utils.ModRarities;
+import org.jetbrains.annotations.NotNull;
+import software.bernie.geckolib.animatable.GeoItem;
+import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
+import software.bernie.geckolib.core.animation.*;
+import software.bernie.geckolib.core.object.PlayState;
+import software.bernie.geckolib.util.GeckoLibUtil;
+
+import java.util.List;
+import java.util.function.Consumer;
+
+public class ReaperLanternSpellBook extends PassiveAbilitySpellbook implements GeoItem {
+    public static final int COOLDOWN = 5*20;
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+    private static final RawAnimation IDLE_ANIMATION = RawAnimation.begin().thenLoop("idle");
+    private final AnimationController<ReaperLanternSpellBook> animationController = new AnimationController<>(this, "controller", 0, this::predicate);
+
+    public ReaperLanternSpellBook() {
+        super(12, ItemPropertiesHelper.equipment().fireResistant().stacksTo(1).rarity(ModRarities.SOUL_RARITY_PROXY.getValue()));
+        withSpellbookAttributes(new AttributeContainer(AttributeRegistry.MAX_MANA, 200, AttributeModifier.Operation.ADDITION),
+        new AttributeContainer(ModAtributeRegistry.NECRO_MAGIC_POWER, 0.20, AttributeModifier.Operation.MULTIPLY_BASE),
+        new AttributeContainer(ASAttributeRegistry.MANA_REND, 0.10, AttributeModifier.Operation.ADDITION));
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable net.minecraft.world.level.Level context, @NotNull List<Component> lines, @NotNull TooltipFlag flag) {
+        super.appendHoverText(itemStack, context, lines, flag);
+        var affinityData = AffinityData.getAffinityData(itemStack);
+        if (!affinityData.affinityData().isEmpty()) {
+            int i = TooltipsUtils.indexOfComponent(lines, "tooltip.irons_spellbooks.spellbook_spell_count");
+            lines.addAll(i < 0 ? lines.size() : i + 1, affinityData.getDescriptionComponent());
+        }
+    }
+
+    @Override
+    public void initializeSpellContainer(ItemStack itemStack) {
+        if (itemStack == null) {
+            return;
+        }
+
+        super.initializeSpellContainer(itemStack);
+        AffinityData.setAffinityData(itemStack, ModSpellRegistry.REAPER_ASPECT.get(), 2);
+    }
+
+    protected int getCooldownTicks() {
+        return COOLDOWN;
+    }
+
+    @Override
+    public void registerControllers(AnimatableManager.ControllerRegistrar controllerRegistrar) {
+
+    }
+
+    private PlayState predicate(AnimationState<ReaperLanternSpellBook> event) {
+        event.getController().setAnimation(IDLE_ANIMATION);
+        return PlayState.CONTINUE;
+    }
+
+    public AnimatableInstanceCache getAnimatableInstanceCache() {
+        return this.cache;
+    }
+
+
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        consumer.accept(new IClientItemExtensions() {
+            private ReaperLanternRenderer renderer;
+
+            @Override
+            public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                if(this.renderer == null) {
+                    renderer = new ReaperLanternRenderer();
+                }
+
+                return this.renderer;
+            }
+        });
+    }
+}

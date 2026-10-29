@@ -1,0 +1,14 @@
+{
+  "type": "irons_spellbooks:alchemist_cauldron_brew",
+  "base_fluid": {
+    "Amount": 500,
+    "FluidName": "monsterspellbooks:void_fluid"
+  },
+  "byproduct": {
+    "item": "monsterspellbooks:void_obsidian_ingot"
+  },
+  "input": {
+    "tag": "forge:obsidian"
+  },
+  "results": []
+}

@@ -1,0 +1,11 @@
+{
+  "remove": [
+    "#monsterspellbooks:needs_sanguinite_tool"
+  ],
+  "values": [
+    {
+      "id": "#minecraft:incorrect_for_iron_tool",
+      "required": false
+    }
+  ]
+}

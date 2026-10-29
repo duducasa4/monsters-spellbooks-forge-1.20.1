@@ -1,0 +1,59 @@
+package net.redreaper.monsterspellbooks.item.curios.head;
+
+import com.google.common.collect.LinkedHashMultimap;
+import com.google.common.collect.Multimap;
+import io.redspace.ironslib.registry.IronsLibRegistries;
+import io.redspace.ironsspellbooks.api.item.curios.AffinityData;
+import io.redspace.ironsspellbooks.api.registry.SpellDataRegistryHolder;
+import io.redspace.ironsspellbooks.api.registry.SpellRegistry;
+import io.redspace.ironsspellbooks.compat.Curios;
+import io.redspace.ironsspellbooks.registries.ComponentRegistry;
+import io.redspace.ironsspellbooks.util.ItemPropertiesHelper;
+import io.redspace.ironsspellbooks.util.TooltipsUtils;
+import net.acetheeldritchking.aces_spell_utils.items.curios.PresetImbueCurio;
+import net.acetheeldritchking.aces_spell_utils.registries.ASAttributeRegistry;
+import net.acetheeldritchking.aces_spell_utils.utils.ASRarities;
+import net.minecraft.core.Holder;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import org.jetbrains.annotations.NotNull;
+import top.theillusivec4.curios.api.SlotContext;
+
+import java.util.List;
+import java.util.Map;
+
+public class CriticalSorcererGlassesItem extends PresetImbueCurio {
+    public CriticalSorcererGlassesItem() {
+        super(ItemPropertiesHelper.equipment().stacksTo(1).fireResistant().rarity(ASRarities.FORBIDDEN_RARITY), Curios.NECKLACE_SLOT,
+                SpellDataRegistryHolder.of(new SpellDataRegistryHolder(SpellRegistry.PLANAR_SIGHT_SPELL, 1)));
+    }
+
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(SlotContext slotContext, java.util.UUID id, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> attr = LinkedHashMultimap.create();
+        attr.put(IronsLibRegistries.AttributeRegistry.CRIT_DAMAGE.get(), net.redreaper.monsterspellbooks.compat120.ItemAttrs.modifier(id, 0.15, AttributeModifier.Operation.MULTIPLY_BASE));
+        attr.put(ASAttributeRegistry.MAGIC_DAMAGE_CRIT_CHANCE.get(), net.redreaper.monsterspellbooks.compat120.ItemAttrs.modifier(id, 0.50, AttributeModifier.Operation.MULTIPLY_BASE));
+        attr.put(ASAttributeRegistry.MAGIC_DAMAGE_CRIT_DAMAGE.get(), net.redreaper.monsterspellbooks.compat120.ItemAttrs.modifier(id, 0.25, AttributeModifier.Operation.MULTIPLY_BASE));
+        return attr;
+    }
+
+    @Override
+    public void appendHoverText(@NotNull ItemStack itemStack, @javax.annotation.Nullable net.minecraft.world.level.Level context, @NotNull List<Component> lines, @NotNull TooltipFlag flag) {
+        super.appendHoverText(itemStack, context, lines, flag);
+        var affinityData = AffinityData.getAffinityData(itemStack);
+        if (!affinityData.affinityData().isEmpty()) {
+            int i = TooltipsUtils.indexOfComponent(lines, "tooltip.irons_spellbooks.spellbook_spell_count");
+            lines.addAll(i < 0 ? lines.size() : i + 1, affinityData.getDescriptionComponent());
+        }
+    }
+
+    public void initializeSpellContainer(ItemStack itemStack) {
+        if (itemStack != null) {
+            super.initializeSpellContainer(itemStack);
+            AffinityData.set(itemStack, new AffinityData(Map.of(SpellRegistry.PLANAR_SIGHT_SPELL.get().getSpellResource(), 2)));
+        }
+    }
+}
